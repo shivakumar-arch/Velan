@@ -2,6 +2,7 @@
 
 body {
     height: 100vh;
+    width: 100vw;
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -12,89 +13,85 @@ body {
 
 #bg-layer {
     position: absolute;
-    top: 0; left: 0; width: 100vw; height: 100vh;
+    top: 0; left: 0; width: 100%; height: 100%;
     background: url('https://images.unsplash.com/photo-1605721115160-b6103ff2da8c?auto=format&fit=crop&w=1950&q=80') center center / cover no-repeat;
     filter: brightness(0.3);
     z-index: 1;
 }
 
+/* PNGs are now on top of EVERYTHING */
 #transition-layer {
     position: fixed;
     top: 0; left: 0; width: 100vw; height: 100vh;
     pointer-events: none;
-    z-index: 5; /* Behind the text but above background */
+    z-index: 9999; 
 }
 
 .content-area {
-    width: 95%;
-    max-width: 450px;
-    z-index: 100; /* Keeps text above stickers */
+    width: 90%;
+    max-width: 500px;
+    z-index: 10;
     text-align: center;
+    padding: 20px;
 }
 
-.unwrap-anim { animation: fadeInScale 0.8s ease-out forwards; }
-@keyframes fadeInScale {
-    0% { transform: scale(0.8); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
+/* FADE IN/OUT FOR CONTENT */
+.fade-anim { animation: fadeInOut 2s ease-in-out forwards; }
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: scale(0.9); }
+    20% { opacity: 1; transform: scale(1); }
+    80% { opacity: 1; }
+    100% { opacity: 0; }
 }
 
 .ink-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: opacity 0.3s ease;
+    opacity: 1;
+    transition: opacity 0.5s ease;
 }
+
 .ink-content.hidden { opacity: 0; }
 
 .story-gif {
-    width: 220px;
-    height: 220px;
-    object-fit: contain;
+    width: 80%;
+    max-width: 250px;
+    height: auto;
     border-radius: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-h1 { 
-    font-size: 3.5rem; 
-    color: #ff4d6d; 
-    text-shadow: 2px 2px 8px #000; 
-}
-p { 
-    font-size: 2.2rem; 
-    color: #ffffff; 
-    text-shadow: 2px 2px 8px #000;
-    margin-bottom: 20px;
-}
+h1 { font-size: clamp(2.5rem, 8vw, 3.5rem); color: #ff4d6d; text-shadow: 2px 2px 8px #000; }
+p { font-size: clamp(1.5rem, 5vw, 2.2rem); color: #ffffff; text-shadow: 2px 2px 8px #000; margin-bottom: 20px; }
 
 .next-btn, #btnYes, #btnNo, .call-btn {
     background: rgba(255, 77, 109, 0.9);
     color: white;
     border: 2px solid #fff;
-    padding: 12px 30px;
-    font-size: 1.8rem;
+    padding: 10px 25px;
+    font-size: 1.5rem;
     font-family: 'Caveat', cursive;
     border-radius: 50px;
     cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
     text-decoration: none;
-    display: inline-block;
 }
 
 #btnYes { background: #4CAF50; }
-.call-btn { background: #25D366; margin-top: 20px; border-color: #fff; }
+.call-btn { background: #25D366; display: inline-block; margin-top: 15px; }
+.btn-group { display: flex; justify-content: center; gap: 15px; margin-top: 10px; }
 
-.btn-group { display: flex; justify-content: center; gap: 20px; margin-top: 10px; }
-
-/* STICKER LOGIC */
-.stuck-png {
+/* PNG POP & FADE EFFECT */
+.popping-png {
     position: fixed;
-    will-change: transform;
-    animation: popAndStay 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-    filter: drop-shadow(5px 5px 10px rgba(0,0,0,0.4));
+    z-index: 10000;
+    will-change: transform, opacity;
+    animation: popFade 1.8s ease-in-out forwards;
 }
 
-@keyframes popAndStay {
-    0% { transform: scale(0) rotate(-30deg); opacity: 0; }
-    100% { transform: scale(1) rotate(var(--rotation)); opacity: 1; }
+@keyframes popFade {
+    0% { transform: scale(0) rotate(-20deg); opacity: 0; }
+    30% { transform: scale(1.2) rotate(var(--rotation)); opacity: 1; }
+    70% { transform: scale(1) rotate(var(--rotation)); opacity: 1; }
+    100% { transform: scale(0.8) rotate(var(--rotation)); opacity: 0; }
 }
