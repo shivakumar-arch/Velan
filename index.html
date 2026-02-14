@@ -3,68 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>For My Chellam ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <title>For My Everything ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        
         body {
-            font-family: 'Quicksand', sans-serif;
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            /* Realistic wooden desk background */
+            background-image: url('https://images.unsplash.com/photo-1551269901-5c5e14c25df7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            text-align: center;
             overflow: hidden;
             position: relative;
         }
-        
-        /* Floating Hearts Background */
-        .hearts-bg { position: absolute; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
-        .heart {
-            position: absolute; bottom: -20px; font-size: 20px; color: rgba(255, 255, 255, 0.6);
-            animation: floatUp 4s infinite linear;
-        }
-        @keyframes floatUp {
-            0% { transform: translateY(0) scale(1); opacity: 1; }
-            100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+
+        /* The Crushed Paper Card */
+        .paper-card {
+            /* Crushed paper texture */
+            background-color: #fdfbf7;
+            background-image: url('https://www.transparenttextures.com/patterns/crushed-paper.png');
+            width: 90%;
+            max-width: 420px;
+            min-height: 450px;
+            padding: 40px 25px;
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            /* Torn/organic edges effect */
+            border-radius: 2px 15px 4px 20px;
+            box-shadow: 5px 10px 25px rgba(0,0,0,0.5);
+            transform: rotate(-1deg);
         }
 
-        /* Container */
-        .container {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.3);
-            width: 90%;
-            max-width: 400px;
-            z-index: 10;
-            position: relative;
+        /* Realistic Flower Decorations */
+        .flower {
+            position: absolute;
+            width: 80px;
+            z-index: 15;
+            pointer-events: none;
+            filter: drop-shadow(2px 4px 4px rgba(0,0,0,0.3));
+        }
+        .flower.top-left { top: -20px; left: -20px; transform: rotate(-20deg); }
+        .flower.bottom-right { bottom: -20px; right: -20px; transform: rotate(160deg); }
+
+        /* Typography */
+        h1 {
+            font-family: 'Caveat', cursive;
+            color: #8b0000; /* Deep romantic red */
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            line-height: 1.1;
+        }
+        
+        p {
+            font-family: 'Caveat', cursive;
+            font-size: 1.4rem; /* Small but readable handwriting */
+            color: #333;
+            line-height: 1.4;
+            margin-bottom: 20px;
+            padding: 0 10px;
+        }
+
+        /* GIFs */
+        img.gif {
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 1px 2px 8px rgba(0,0,0,0.2);
+            border: 3px solid #fff;
+            transform: rotate(2deg);
         }
 
         /* Pages */
         .page { display: none; animation: fadeIn 0.8s ease-in-out; }
         .page.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* Typography & Images */
-        h1 { font-family: 'Pacifico', cursive; color: #ff4d6d; font-size: 2rem; margin-bottom: 10px; }
-        p { font-size: 1.2rem; color: #444; line-height: 1.5; margin-bottom: 20px; }
-        img.gif { width: 200px; border-radius: 15px; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-
-        /* Buttons */
+        /* Aesthetic Buttons */
         button {
-            background: #ff4d6d; color: white; border: none; padding: 12px 25px;
-            font-size: 1.1rem; border-radius: 50px; cursor: pointer; font-weight: bold;
-            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4); transition: transform 0.2s;
-            font-family: 'Quicksand', sans-serif; margin: 5px;
+            background: transparent;
+            color: #8b0000;
+            border: 2px solid #8b0000;
+            padding: 8px 20px;
+            font-size: 1.2rem;
+            font-family: 'Caveat', cursive;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            margin: 5px;
+            background-color: rgba(255,255,255,0.5);
         }
-        button:active { transform: scale(0.95); }
-        
-        /* The Proposal Buttons */
-        .btn-group { display: flex; justify-content: center; gap: 15px; margin-top: 20px; position: relative; height: 60px;}
-        #btnYes { background: #4CAF50; box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4); }
-        #btnNo { background: #f44336; box-shadow: 0 5px 15px rgba(244, 67, 54, 0.4); position: absolute; z-index: 100; }
+        button:active { background: #8b0000; color: white; }
+
+        /* Proposal Buttons specific */
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            position: relative;
+            height: 50px;
+        }
+        #btnYes { background: #8b0000; color: white; border-radius: 5px; }
+        #btnNo { background: #fff; color: #8b0000; position: relative; border-radius: 5px; }
+
+        /* Floating Realistic Kisses */
+        .kiss-mark {
+            position: absolute;
+            width: 40px;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 5;
+            animation: kissFade 3s ease-in-out forwards;
+        }
+        @keyframes kissFade {
+            0% { opacity: 0; transform: scale(0.5) rotate(-20deg); }
+            50% { opacity: 0.6; transform: scale(1) rotate(10deg); }
+            100% { opacity: 0; transform: scale(1.2) rotate(20deg); }
+        }
     </style>
 </head>
 <body>
@@ -73,64 +136,90 @@
         <source src="remo.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="hearts-bg" id="heartsBg"></div>
+    <div class="paper-card" id="mainCard">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Pink_rose_transparent_background.png/512px-Pink_rose_transparent_background.png" class="flower top-left">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Pink_rose_transparent_background.png/512px-Pink_rose_transparent_background.png" class="flower bottom-right">
 
-    <div class="container">
-        
         <div id="page0" class="page active">
             <img src="https://media.tenor.com/yCFHzEvKa9MAAAAj/hello.gif" class="gif">
-            <h1>Hi Pondati! ❤️</h1>
-            <p>I have a small surprise for you... Ready to see it?</p>
-            <button onclick="startJourney()">Yes, Start! 😍</button>
+            <h1>Hi chellaameee ❤️</h1>
+            <p>I made something special just for you, written straight from my heart. Ready to read it?</p>
+            <button onclick="startJourney()">Open Letter 💌</button>
         </div>
 
         <div id="storyPage" class="page">
             <img id="storyGif" src="" class="gif">
             <h1 id="storyTitle"></h1>
             <p id="storyText"></p>
-            <button onclick="nextStory()">Next 💖</button>
+            <button onclick="nextStory()">Next Page 📖</button>
         </div>
 
         <div id="proposalPage" class="page">
             <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" class="gif">
-            <h1>Will you be my Valentine? 🥺</h1>
-            <p>En koodave eppavum irupiya chellam?</p>
+            <h1>My dearest pondatiiiiiiiiiiii...</h1>
+            <p>Will you do me the absolute honor of being my Valentine today, tomorrow, and forever?</p>
             <div class="btn-group">
                 <button id="btnYes" onclick="showFinal()">Yes! ❤️</button>
-                <button id="btnNo" onmouseover="dodge()" ontouchstart="dodge()">No 🏃‍♀️</button>
+                <button id="btnNo" onmouseover="dodge()" ontouchstart="dodge()">No</button>
             </div>
         </div>
 
         <div id="finalPage" class="page">
             <img src="https://media.tenor.com/IVKKi1R5uc4AAAAi/goma-happy.gif" class="gif">
-            <h1>Yayyy! 🎉</h1>
-            <p>En pondati YES sollita! ❤️<br><br>Happy Valentine's Day d pondati! Un kooda vazhum ovvoru nodiyum enaku varam. Love you 3000! 😘</p>
+            <h1>She said Yes! 🎉</h1>
+            <p>Happy Valentine's Day! I promise to cherish you, love you, and annoy you for the rest of our lives. I love you to the moon and back!</p>
         </div>
-
     </div>
 
     <script>
-        // Story Data for Valentine's Week
+        // Story Data matching your exact requested names and English lines
         const stories = [
-            { title: "Rose Day 🌹", text: "Oru rose kuduthu unna impress panna theva illa, nee thaan en life oda roja!", gif: "https://media.tenor.com/lM5zS9-rFp4AAAAi/bubu-dudu-bubu.gif" },
-            { title: "Propose Day 💍", text: "En usuru unnodathu d... eppavum en koodave irupiya?", gif: "https://media.tenor.com/A65_bB1EtiMAAAAi/peach-cat-propose.gif" },
-            { title: "Chocolate Day 🍫", text: "Nee thaan en life oda sweetest chocolate. Sweet aana pondati!", gif: "https://media.tenor.com/Jb9kGfK4nLEAAAAi/bubu-dudu-bubu.gif" },
-            { title: "Teddy Day 🧸", text: "En katti pidi vaithiyam... My cute teddy bear nee thaan!", gif: "https://media.tenor.com/8QGzQ21mJg4AAAAi/tkthao219-bubududu.gif" },
-            { title: "Promise Day 🤝", text: "Sathiyama solren, eppavum unna nalla paathupen. I promise!", gif: "https://media.tenor.com/39hP_IqW2J0AAAAi/pink-and.gif" },
-            { title: "Hug Day 🤗", text: "Un oru hug la en ellam kavalaiyum parandhurum...", gif: "https://media.tenor.com/Ztw1z9dF8D4AAAAi/bubu-dudu-bubu.gif" },
-            { title: "Kiss Day 😘", text: "Ummaah! En anbu chellathuku...", gif: "https://media.tenor.com/vH9ZJ4n0pU0AAAAi/tkthao219-bubududu.gif" }
+            { 
+                title: "Rose Day 🌹", 
+                text: "chellaameee, a single rose is beautiful, but it completely pales in comparison to you. You are the only flower blooming in my heart.", 
+                gif: "https://media.tenor.com/lM5zS9-rFp4AAAAi/bubu-dudu-bubu.gif" 
+            },
+            { 
+                title: "Propose Day 💍", 
+                text: "thangameee, I don't need a special day to tell you this, but I want to spend every single moment of my beautiful life waking up next to you.", 
+                gif: "https://media.tenor.com/A65_bB1EtiMAAAAi/peach-cat-propose.gif" 
+            },
+            { 
+                title: "Chocolate Day 🍫", 
+                text: "vairameeeeeee, life is so much sweeter simply because you are in it. You are my favorite treat, and my sweetest addiction.", 
+                gif: "https://media.tenor.com/Jb9kGfK4nLEAAAAi/bubu-dudu-bubu.gif" 
+            },
+            { 
+                title: "Teddy Day 🧸", 
+                text: "pondatiiiiiiiiiiii, you are my ultimate comfort, my safest place, and my favorite person in the whole world to hold onto.", 
+                gif: "https://media.tenor.com/8QGzQ21mJg4AAAAi/tkthao219-bubududu.gif" 
+            },
+            { 
+                title: "Promise Day 🤝", 
+                text: "azhagiiiiiiiiiiiiiii, I promise to always be by your side, holding your hand through all the ups and downs. My heart is completely yours.", 
+                gif: "https://media.tenor.com/39hP_IqW2J0AAAAi/pink-and.gif" 
+            },
+            { 
+                title: "Hug Day 🤗", 
+                text: "baby gurllllllllll, your arms literally feel like home. Every single time you hug me, all my worries just melt away into nothing.", 
+                gif: "https://media.tenor.com/Ztw1z9dF8D4AAAAi/bubu-dudu-bubu.gif" 
+            },
+            { 
+                title: "Kiss Day 😘", 
+                text: "milkcake ehhhhh, a million kisses wouldn't be enough to show you how deeply, truly, and madly I am in love with you.", 
+                gif: "https://media.tenor.com/vH9ZJ4n0pU0AAAAi/tkthao219-bubududu.gif" 
+            }
         ];
 
         let currentStep = 0;
         const bgMusic = document.getElementById("bgMusic");
 
         function startJourney() {
-            // Start the BGM on first interaction
-            bgMusic.play().catch(e => console.log("Audio play prevented by browser"));
+            bgMusic.play().catch(e => console.log("Audio play prevented"));
             document.getElementById("page0").classList.remove("active");
             loadStory();
             document.getElementById("storyPage").classList.add("active");
-            createHearts();
+            spawnKisses(); // Start the realistic kiss animation
         }
 
         function loadStory() {
@@ -154,35 +243,41 @@
             document.getElementById("finalPage").classList.add("active");
         }
 
+        // The running away 'No' button logic
         function dodge() {
             const btnNo = document.getElementById("btnNo");
-            // Calculate random positions bounded by the container size so it doesn't go off-screen
-            const container = document.querySelector('.container');
-            const maxX = container.clientWidth - btnNo.clientWidth - 20;
-            const maxY = container.clientHeight - btnNo.clientHeight - 20;
+            const card = document.getElementById("mainCard");
+            
+            // Keep the button inside the paper card boundaries
+            const maxX = card.clientWidth - btnNo.clientWidth - 40;
+            const maxY = card.clientHeight - btnNo.clientHeight - 40;
             
             const randomX = Math.floor(Math.random() * maxX);
-            const randomY = Math.floor(Math.random() * maxY) - 50; // shift up a bit
+            const randomY = Math.floor(Math.random() * maxY);
 
             btnNo.style.position = "absolute";
             btnNo.style.left = randomX + "px";
             btnNo.style.top = randomY + "px";
         }
 
-        // Floating Hearts Background Animation
-        function createHearts() {
-            const bg = document.getElementById("heartsBg");
+        // Realistic Popping Kisses Animation
+        function spawnKisses() {
             setInterval(() => {
-                const heart = document.createElement("div");
-                heart.classList.add("heart");
-                heart.innerText = ["❤️", "💖", "💕", "🌸"][Math.floor(Math.random() * 4)];
-                heart.style.left = Math.random() * 100 + "vw";
-                heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
-                bg.appendChild(heart);
-                setTimeout(() => heart.remove(), 5000);
-            }, 300);
+                const kiss = document.createElement("img");
+                // Realistic transparent lipstick mark PNG
+                kiss.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Kiss_mark_lipstick.svg/512px-Kiss_mark_lipstick.svg.png";
+                kiss.classList.add("kiss-mark");
+                
+                // Random position anywhere on the screen
+                kiss.style.left = Math.random() * 90 + "vw";
+                kiss.style.top = Math.random() * 90 + "vh";
+                
+                document.body.appendChild(kiss);
+                
+                // Remove the kiss element after animation finishes so phone doesn't lag
+                setTimeout(() => kiss.remove(), 3000);
+            }, 800); // Spawns a new kiss every 0.8 seconds
         }
     </script>
 </body>
 </html>
-
