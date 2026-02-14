@@ -6,20 +6,19 @@ body {
     overflow: hidden;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; /* Desktop centering */
     background: #000;
     perspective: 2000px; 
-    touch-action: manipulation; /* Prevents double-tap zooming on mobile */
+    touch-action: manipulation;
 }
 
-/* FIXED BACKGROUND: Won't shrink during turns */
 #static-bg {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
     background: radial-gradient(circle at center, #2b0000 0%, #000000 100%),
                 url('bg.png') center/cover no-repeat;
     background-blend-mode: overlay;
-    filter: brightness(0.4); /* Darkened slightly so text stays readable */
+    filter: brightness(0.4); 
     z-index: -1;
 }
 
@@ -30,17 +29,25 @@ body {
     z-index: 5;
 }
 
+/* THE FIX: Added margin:auto and max-height to prevent top-clipping on mobile */
 .content-area {
-    width: 90%;
+    width: 95%;
     max-width: 500px;
+    max-height: 90vh; 
+    margin: auto; 
+    overflow-y: auto; 
+    scrollbar-width: none; 
     z-index: 100;
     text-align: center;
-    padding: 15px;
+    padding: 20px 10px;
     transform-style: preserve-3d;
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s;
 }
 
-/* STORY TRANSITIONS */
+.content-area::-webkit-scrollbar {
+    display: none;
+}
+
 .story-out-next { transform: translateX(-120%) rotateY(60deg) scale(0.8); opacity: 0; }
 .story-out-prev { transform: translateX(120%) rotateY(-60deg) scale(0.8); opacity: 0; }
 .story-in { animation: storyEntry 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
@@ -50,11 +57,11 @@ body {
     100% { transform: scale(1); opacity: 1; }
 }
 
+/* THE FIX: Dynamic sizing for the GIF so it scales down on phones */
 .story-gif {
-    width: 200px;
-    max-width: 60%;
+    width: clamp(120px, 35vw, 180px); 
     border-radius: 15px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     box-shadow: 0 0 20px rgba(255, 77, 109, 0.5);
     aspect-ratio: 1/1;
     object-fit: cover;
@@ -62,32 +69,34 @@ body {
 
 h1 { 
     font-family: 'Playwrite USA Modern', sans-serif; 
-    font-size: clamp(1.5rem, 6vw, 2.5rem); 
+    font-size: clamp(1.4rem, 5vw, 2.5rem); 
     color: #ff4d6d; 
     text-shadow: 0 0 10px #000; 
+    margin-bottom: 5px;
 }
 
+/* THE FIX: Scaled down the minimum mobile font size to 1.3rem */
 p { 
     font-family: 'Licorice', cursive; 
-    font-size: clamp(1.8rem, 6vw, 2.8rem); 
+    font-size: clamp(1.3rem, 5.5vw, 2.4rem); 
     color: #ffffff; 
-    line-height: 1.1; 
-    margin-top: 10px;
+    line-height: 1.15; 
+    margin-top: 5px;
 }
 
 .call-btn, #btnYes, #btnNo {
     font-family: 'Playwrite USA Modern', sans-serif;
     background: rgba(255, 77, 109, 0.9);
     color: white;
-    padding: 12px 25px;
-    font-size: 1rem; 
+    padding: 10px 20px;
+    font-size: clamp(0.8rem, 3vw, 1rem); 
     border-radius: 50px;
     border: 2px solid #fff;
     text-decoration: none;
     display: inline-block;
     margin-top: 15px;
     position: relative;
-    z-index: 99999; /* Absolute priority over kisses so they are clickable */
+    z-index: 99999; 
     pointer-events: auto;
     cursor: pointer;
 }
@@ -98,7 +107,7 @@ p {
 .fading-png {
     position: fixed;
     z-index: 10;
-    pointer-events: none; /* Let taps pass through to the screen */
+    pointer-events: none; 
     animation: fadeCycle 4s ease-in-out forwards;
 }
 
