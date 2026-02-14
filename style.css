@@ -24,8 +24,8 @@ body {
 .vintage-paper {
     width: 90%;
     max-width: 400px;
-    min-height: 450px;
-    padding: 30px 20px;
+    min-height: 500px; /* Increased height for content */
+    padding: 40px 25px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -37,10 +37,11 @@ body {
     background-image: url('https://www.transparenttextures.com/patterns/old-wall.png');
     
     /* Burnt/Darkened Edges using Shadow */
-    box-shadow: inset 0 0 50px rgba(90, 40, 10, 0.8), 10px 15px 25px rgba(0,0,0,0.8);
+    box-shadow: inset 0 0 60px rgba(90, 40, 10, 0.9), 10px 15px 30px rgba(0,0,0,0.8);
     
     /* Irregular torn paper edges */
-    border-radius: 2px 10px 4px 15px;
+    border-radius: 3px 12px 5px 18px;
+    border: 1px solid rgba(90, 40, 10, 0.3);
 }
 
 /* Paper unfolding animation */
@@ -61,32 +62,33 @@ body {
 .ink-content.hidden { opacity: 0; }
 
 .story-gif {
-    width: 160px;
-    height: 160px;
+    width: 100%;
+    max-height: 180px;
     object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    box-shadow: 2px 4px 10px rgba(0,0,0,0.3);
-    border: 2px solid rgba(90, 40, 10, 0.3);
+    border-radius: 8px;
+    margin-bottom: 25px;
+    box-shadow: 3px 5px 12px rgba(0,0,0,0.4);
+    border: 2px solid rgba(90, 40, 10, 0.5);
 }
 
 /* Dark red/brown dried ink text */
-h1 { font-size: 3rem; margin-bottom: 10px; font-weight: 700; color: #721c24; line-height: 1; }
-p { font-size: 1.8rem; line-height: 1.2; font-weight: 700; margin-bottom: 25px; color: #3e1f10; }
+h1 { font-size: 3.2rem; margin-bottom: 15px; font-weight: 700; color: #721c24; line-height: 1; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
+p { font-size: 1.9rem; line-height: 1.3; font-weight: 700; margin-bottom: 30px; color: #3e1f10; }
 
 /* THE BIG, CLEAR NEXT BUTTON */
 .next-btn {
     background-color: transparent;
     color: #721c24;
     border: 3px solid #721c24;
-    padding: 12px 35px;
-    font-size: 1.6rem;
+    padding: 12px 40px;
+    font-size: 1.7rem;
     font-family: 'Caveat', cursive;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
     transition: all 0.2s;
-    background-color: rgba(255,255,255,0.2);
+    background-color: rgba(255,255,255,0.15);
+    box-shadow: 2px 3px 5px rgba(0,0,0,0.2);
 }
 .next-btn:active { background-color: #721c24; color: #dcb88e; transform: scale(0.95); }
 
@@ -94,12 +96,12 @@ p { font-size: 1.8rem; line-height: 1.2; font-weight: 700; margin-bottom: 25px; 
 .btn-group { 
     display: flex; 
     justify-content: center; 
-    gap: 20px; 
+    gap: 25px; 
     width: 100%; 
-    height: 60px;
+    margin-top: 10px;
 }
-#btnYes { background-color: #2b5329; color: white; border: none; padding: 12px 35px; font-size: 1.6rem; border-radius: 5px; font-family: 'Caveat', cursive;}
-#btnNo { background-color: #721c24; color: white; border: none; padding: 12px 35px; font-size: 1.6rem; border-radius: 5px; font-family: 'Caveat', cursive; transition: 0.2s;}
+#btnYes { background-color: #2b5329; color: white; border: none; padding: 12px 40px; font-size: 1.7rem; border-radius: 4px; font-family: 'Caveat', cursive; box-shadow: 2px 3px 5px rgba(0,0,0,0.3);}
+#btnNo { background-color: #721c24; color: white; border: none; padding: 12px 40px; font-size: 1.7rem; border-radius: 4px; font-family: 'Caveat', cursive; transition: 0.2s; box-shadow: 2px 3px 5px rgba(0,0,0,0.3);}
 
 /* FALLING ITEMS (Chocolates & Kisses) */
 .falling-item {
@@ -112,13 +114,13 @@ p { font-size: 1.8rem; line-height: 1.2; font-weight: 700; margin-bottom: 25px; 
     100% { transform: translateY(115vh) rotate(360deg); } 
 }
 
-/* Bulletproof Emojis used as high-res images to prevent corruption */
-.emoji-drop {
-    font-size: 50px; /* Adjust size of falling items */
-    filter: drop-shadow(3px 5px 4px rgba(0,0,0,0.5));
+/* Realistic PNGs for falling items */
+.falling-png {
+    width: 60px; /* Default size */
+    filter: drop-shadow(3px 5px 5px rgba(0,0,0,0.5));
 }
 .kiss-png {
-    width: 70px;
+    width: 80px;
     filter: drop-shadow(2px 4px 5px rgba(0,0,0,0.5));
-    opacity: 0.9;
+    opacity: 0.95;
 }

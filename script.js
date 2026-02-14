@@ -15,8 +15,16 @@ const inkContent = document.getElementById("inkContent");
 const fxLayer = document.getElementById("transition-layer");
 const mainGif = document.getElementById("mainGif");
 
-// Highly reliable Wikimedia link for the exact red lipstick kiss you wanted
-const kissUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Kiss_mark_lipstick.svg/512px-Kiss_mark_lipstick.svg.png";
+// Realistic PNG URLs for each day
+const pngUrls = {
+    'rose': 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Rosa_Precious_Platinum.jpg/240px-Rosa_Precious_Platinum.jpg', // Realistic Red Rose
+    'propose': 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Diamond_ring.png/240px-Diamond_ring.png', // Realistic Ring
+    'choco': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Chocolate.png/240px-Chocolate.png', // Realistic Chocolate Bar
+    'teddy': 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Teddy_bear.png/240px-Teddy_bear.png', // Realistic Teddy Bear
+    'promise': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Pinky_promise.png/240px-Pinky_promise.png', // Realistic Pinky Promise
+    'hug': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Hugging_emoji.png/240px-Hugging_emoji.png', // Realistic Hug
+    'kiss': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Kiss_mark_lipstick.svg/512px-Kiss_mark_lipstick.svg.png' // Your specific lipstick kiss
+};
 
 function startJourney() {
     nextStory();
@@ -27,10 +35,16 @@ function nextStory() {
     
     inkContent.classList.add("hidden");
 
-    let animType = 'rose'; 
+    let animType = 'rose'; // Default
     if (currentStep < stories.length) {
-        if (stories[currentStep].title.includes("Chocolate")) animType = 'choco';
-        else if (stories[currentStep].title.includes("Kiss")) animType = 'kiss';
+        let title = stories[currentStep].title.toLowerCase();
+        if (title.includes("rose")) animType = 'rose';
+        else if (title.includes("propose")) animType = 'propose';
+        else if (title.includes("chocolate")) animType = 'choco';
+        else if (title.includes("teddy")) animType = 'teddy';
+        else if (title.includes("promise")) animType = 'promise';
+        else if (title.includes("hug")) animType = 'hug';
+        else if (title.includes("kiss")) animType = 'kiss';
     } else if (currentStep === 7) {
         animType = 'kiss'; 
     }
@@ -102,23 +116,19 @@ function spawnItem(type) {
     let item = document.createElement("div");
     item.classList.add("falling-item");
     
-    // Using Emojis for Roses and Chocolate so they NEVER break or corrupt.
-    // Using the image link for the Kiss.
-    if (type === 'choco') {
-        item.innerHTML = "🍫";
-        item.classList.add("emoji-drop");
-    } else if (type === 'kiss') {
-        let img = document.createElement("img");
-        img.src = kissUrl;
+    let img = document.createElement("img");
+    img.src = pngUrls[type];
+    
+    if (type === 'kiss') {
         img.classList.add("kiss-png");
-        item.appendChild(img);
     } else {
-        item.innerHTML = "🌹";
-        item.classList.add("emoji-drop");
+        img.classList.add("falling-png");
     }
     
+    item.appendChild(img);
+    
     item.style.left = (Math.random() * 100) + "vw";
-    let size = Math.random() * 0.8 + 0.5; 
+    let size = Math.random() * 0.8 + 0.6; 
     item.style.transform = `scale(${size})`;
     
     let duration = Math.random() * 2 + 2.5; 
@@ -131,8 +141,8 @@ function spawnItem(type) {
 function dodge() {
     const btnNo = document.getElementById("btnNo");
     btnNo.style.position = "absolute";
-    const maxX = window.innerWidth - btnNo.clientWidth - 30;
-    const maxY = window.innerHeight - btnNo.clientHeight - 30; 
-    btnNo.style.left = Math.max(10, Math.random() * maxX) + "px";
-    btnNo.style.top = Math.max(10, Math.random() * maxY) + "px";
+    const maxX = window.innerWidth - btnNo.clientWidth - 40;
+    const maxY = window.innerHeight - btnNo.clientHeight - 40; 
+    btnNo.style.left = Math.max(20, Math.random() * maxX) + "px";
+    btnNo.style.top = Math.max(20, Math.random() * maxY) + "px";
 }
