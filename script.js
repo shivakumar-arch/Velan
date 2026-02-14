@@ -1,21 +1,21 @@
 const pngs = {
-    rose: "https://img.icons8.com/fluency/96/rose.png",
-    ring: "https://img.icons8.com/fluency/96/diamond-ring.png",
-    choco: "https://img.icons8.com/fluency/96/chocolate-bar.png",
-    teddy: "https://img.icons8.com/fluency/96/teddy-bear.png",
-    promise: "https://img.icons8.com/fluency/96/handshake.png",
-    hug: "https://img.icons8.com/fluency/96/hugging-face.png",
-    kiss: "https://img.icons8.com/color/96/lips--v1.png"
+    rose: "png1.png",
+    ring: "png2.png",
+    choco: "png3.png",
+    teddy: "png4.png",
+    promise: "png5.png",
+    hug: "png6.png",
+    kiss: "png7.png"
 };
 
 const stories = [
-    { gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb200aHl5bnF4OG44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44/kGj2uE1nF70YjR1nLq/giphy.gif", p: "rose", title: "Rose Day", text: "chellaameee, you are the most beautiful flower in my universe." },
-    { gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb200aHl5bnF4OG44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44/l4pTdcifPGuRoGnRu/giphy.gif", p: "ring", title: "Propose Day", text: "thangameee, I want to spend forever with you." },
-    { gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb200aHl5bnF4OG44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44/Q4sEE1X5HqCJO/giphy.gif", p: "choco", title: "Chocolate Day", text: "vairameeeeeee, you are sweeter than any chocolate." },
-    { gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb200aHl5bnF4OG44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44/L12g7V0Jfk2iM5Cwus/giphy.gif", p: "teddy", title: "Teddy Day", text: "pondatiiiiiiiiiiii, you are my ultimate comfort." },
-    { gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb200aHl5bnF4OG44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44/1k3RVbvmFvFsc/giphy.gif", p: "promise", title: "Promise Day", text: "azhagiiiiiiiiiiiiiii, I promise to hold your hand forever." },
-    { gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb200aHl5bnF4OG44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44/3oEdv4hwWTzBhWvaU0/giphy.gif", p: "hug", title: "Hug Day", text: "baby gurllllllllll, un kooda irukardhu thaan enaku happiness." },
-    { gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb200aHl5bnF4OG44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44/117o9DtK0h5XgY/giphy.gif", p: "kiss", title: "Kiss Day", text: "milkcake ehhhhh, one kiss from you makes everything better." }
+    { gif: "gif2.gif", p: "rose", title: "Rose Day", text: "chellaameee, you are the most beautiful flower in my universe." },
+    { gif: "gif3.gif", p: "ring", title: "Propose Day", text: "thangameee, I want to spend forever with you." },
+    { gif: "gif4.gif", p: "choco", title: "Chocolate Day", text: "vairameeeeeee, you are sweeter than any chocolate." },
+    { gif: "gif5.gif", p: "teddy", title: "Teddy Day", text: "pondatiiiiiiiiiiii, you are my ultimate comfort." },
+    { gif: "gif6.gif", p: "promise", title: "Promise Day", text: "azhagiiiiiiiiiiiiiii, I promise to hold your hand forever." },
+    { gif: "gif7.gif", p: "hug", title: "Hug Day", text: "baby gurllllllllll, un kooda irukardhu thaan enaku happiness." },
+    { gif: "gif8.gif", p: "kiss", title: "Kiss Day", text: "milkcake ehhhhh, one kiss from you makes everything better." }
 ];
 
 let currentStep = -1;
@@ -32,7 +32,6 @@ function nextStory() {
     let currentPNG = "kiss";
     if (currentStep < stories.length) currentPNG = stories[currentStep].p;
 
-    // Trigger Screen Fill with PNGs
     for(let i = 0; i < 45; i++) {
         setTimeout(() => spawnPNG(pngs[currentPNG]), i * 45);
     }
@@ -64,7 +63,7 @@ function spawnPNG(url) {
 }
 
 function loadProposal() {
-    mainGif.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb200aHl5bnF4OG44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44/26BRv0ThflsHCqDrG/giphy.gif";
+    mainGif.src = "gif9.gif";
     document.getElementById("titleText").innerText = "My Pondati...";
     document.getElementById("msgText").innerText = "Will you be my Valentine forever?";
     document.getElementById("actionArea").innerHTML = `
@@ -79,7 +78,7 @@ function showFinal() {
     inkContent.classList.add("hidden");
     for(let i = 0; i < 65; i++) setTimeout(() => spawnPNG(pngs.kiss), i * 35);
     setTimeout(() => {
-        mainGif.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb200aHl5bnF4OG44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44/11s7Ke7jcNxCHS/giphy.gif";
+        mainGif.src = "gif10.gif";
         document.getElementById("titleText").innerText = "Yayyy! 🎉";
         document.getElementById("msgText").innerText = "Happy Valentine's Day! Love you 3000! ❤️";
         document.getElementById("actionArea").innerHTML = "";
