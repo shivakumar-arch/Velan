@@ -19,13 +19,23 @@ const inkContent = document.getElementById("inkContent");
 const fxLayer = document.getElementById("transition-layer");
 const mainGif = document.getElementById("mainGif");
 
+// PRELOADER: Forces the browser to download GIFs early
+function preloadNext() {
+    if (currentStep + 1 < stories.length) {
+        const nextImg = new Image();
+        nextImg.src = stories[currentStep + 1].gif;
+    } else if (currentStep + 1 === stories.length) {
+        const propImg = new Image();
+        propImg.src = "gif9.gif";
+    }
+}
+
 function startJourney() { nextStory(); }
 
 function nextStory() {
     currentStep++;
     inkContent.classList.add("hidden");
 
-    // Clear old PNG sequence
     clearInterval(fadeInterval);
     fxLayer.innerHTML = "";
 
@@ -37,24 +47,19 @@ function nextStory() {
             document.getElementById("msgText").innerText = data.text;
             document.getElementById("actionArea").innerHTML = `<button class="next-btn" onclick="nextStory()">Next Page 📖</button>`;
             
-            // Start fading current PNG type: 1 every 2 seconds (keeps ~2-3 on screen)
             startFadingSequence(pngs[data.p]);
+            preloadNext(); // Preload for the next click
         } else {
             loadProposal();
         }
         inkContent.classList.remove("hidden");
-    }, 800);
+    }, 500); // Shorter delay for snappier feel
 }
 
 function startFadingSequence(imgUrl) {
-    // Initial burst
     spawnOne(imgUrl);
     setTimeout(() => spawnOne(imgUrl), 1500);
-
-    // Continuous loop
-    fadeInterval = setInterval(() => {
-        spawnOne(imgUrl);
-    }, 2000); 
+    fadeInterval = setInterval(() => spawnOne(imgUrl), 2000);
 }
 
 function spawnOne(url) {
@@ -62,18 +67,17 @@ function spawnOne(url) {
     img.src = url;
     img.className = "fading-png";
     
-    // Random spots (keeping them away from very edges)
-    img.style.left = (Math.random() * 60 + 20) + "vw";
-    img.style.top = (Math.random() * 60 + 20) + "vh";
+    // FULL SCREEN RANDOMIZATION:
+    // This allows them to appear anywhere from 5% to 85% of screen width/height
+    img.style.left = (Math.random() * 80 + 5) + "vw";
+    img.style.top = (Math.random() * 80 + 5) + "vh";
     
-    let randomRot = (Math.random() * 40 - 20) + "deg";
+    let randomRot = (Math.random() * 60 - 30) + "deg";
     img.style.setProperty('--rotation', randomRot);
-    img.style.width = (Math.random() * 40 + 100) + "px"; // Very noticeable size
+    img.style.width = (Math.random() * 40 + 80) + "px"; 
     
     fxLayer.appendChild(img);
-    
-    // Remove from DOM after animation finishes (4 seconds total)
-    setTimeout(() => { img.remove(); }, 4100);
+    setTimeout(() => { img.remove(); }, 4000);
 }
 
 function loadProposal() {
@@ -91,16 +95,14 @@ function loadProposal() {
 }
 
 function showFinal() {
-    // Reveal Call Button immediately
     document.getElementById("actionArea").innerHTML = `
         <a href="tel:9353781514" class="call-btn">Call your purushan 📞</a>
     `;
-    
     setTimeout(() => {
         mainGif.src = "gif10.gif";
         document.getElementById("titleText").innerText = "Yayyy! 🎉";
         document.getElementById("msgText").innerText = "Happy Valentine's Day! Love you 3000! ❤️";
-    }, 500);
+    }, 400);
 }
 
 function dodge() {
