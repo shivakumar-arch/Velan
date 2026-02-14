@@ -32,14 +32,24 @@ const stories = [
 
 let currentStep = -1;
 let fadeInterval;
+let isMusicStarted = false;
+
 const paperCard = document.getElementById("paperCard");
 const fxLayer = document.getElementById("transition-layer");
 const mainGif = document.getElementById("mainGif");
+const bgMusic = document.getElementById("bgMusic");
+const muteBtn = document.getElementById("muteBtn");
 
-// SINGLE TAP LOGIC (Left/Right)
+// SINGLE TAP LOGIC (Left/Right) & AUDIO START
 document.body.addEventListener('click', (e) => {
+    // Start music on first tap
+    if (!isMusicStarted) {
+        bgMusic.play().catch(err => console.log("Audio blocked by browser:", err));
+        isMusicStarted = true;
+    }
+
     // Stop navigation if clicking buttons or links
-    if (e.target.tagName === 'BUTTON' || e.target.tagName === 'A' || e.target.closest('.btn-group')) {
+    if (e.target.tagName === 'BUTTON' || e.target.tagName === 'A' || e.target.closest('.btn-group') || e.target.id === 'muteBtn') {
         return;
     }
 
@@ -50,6 +60,17 @@ document.body.addEventListener('click', (e) => {
     }
 });
 
+window.toggleMute = function(e) {
+    e.stopPropagation(); // Prevents page turn
+    if (bgMusic.muted) {
+        bgMusic.muted = false;
+        muteBtn.innerText = "🔊";
+    } else {
+        bgMusic.muted = true;
+        muteBtn.innerText = "🔇";
+    }
+};
+
 window.showFinal = function() {
     paperCard.classList.add("story-out-next");
     setTimeout(() => {
@@ -59,8 +80,9 @@ window.showFinal = function() {
         document.getElementById("msgText").innerHTML = `
             Every single day with you feels like a beautiful dream that I never want to wake up from. You are my soulmate, my best friend, and the love of my life. I am so incredibly grateful to have you by my side. <br><br>
             Our journey is just beginning, and I cannot wait to see all the beautiful memories we will create together. You make me a better person just by being in my life. I promise to cherish you, respect you, and love you unconditionally for the rest of our days. <br><br>
-            You are my everything, <strong>en chellam</strong>. My heart belongs to you now and forever. Thank you for being the most amazing <strong>pondati</strong> a man could ever ask for. I loooooooovvvvvvveeeeeeee yooooouuuuuuu.
+            You are my everything, <strong>en chellam</strong>. My heart belongs to you now and forever. Thank you for being the most amazing <strong>pondati</strong> a man could ever ask for. I love you more than all the stars in the sky.
         `;
+        // Make sure to double check this number!
         document.getElementById("actionArea").innerHTML = `<a href="tel:9353781514" class="call-btn">Call your purushan 📞</a>`;
         paperCard.classList.add("story-in");
         setTimeout(() => paperCard.classList.remove("story-in"), 600);
@@ -68,11 +90,10 @@ window.showFinal = function() {
 };
 
 window.dodge = function(e) {
-    if (e) e.preventDefault(); // Prevents touch events from acting as clicks on mobile
+    if (e) e.preventDefault(); 
     const b = document.getElementById("btnNo");
     if(b) {
         b.style.position = "fixed";
-        // Safe zone for button jumping so it doesn't go off screen
         const safeX = Math.random() * (window.innerWidth * 0.6) + (window.innerWidth * 0.15);
         const safeY = Math.random() * (window.innerHeight * 0.6) + (window.innerHeight * 0.15);
         b.style.left = safeX + "px";
@@ -114,7 +135,6 @@ function updatePage() {
         document.getElementById("actionArea").innerHTML = "";
         startFadingSequence(pngs[data.p]);
         
-        // Preload next gif
         if (currentStep + 1 < stories.length) new Image().src = stories[currentStep + 1].gif;
     } else {
         loadProposal();

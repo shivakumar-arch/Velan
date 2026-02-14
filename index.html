@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <audio id="bgMusic" loop>
+        <source src="bg.mp3" type="audio/mpeg">
+    </audio>
+    <button id="muteBtn" onclick="window.toggleMute(event)">🔊</button>
+
     <div id="static-bg"></div>
     <div id="transition-layer"></div>
 

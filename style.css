@@ -6,7 +6,7 @@ body {
     overflow: hidden;
     display: flex;
     justify-content: center;
-    align-items: center; /* Desktop centering */
+    align-items: center;
     background: #000;
     perspective: 2000px; 
     touch-action: manipulation;
@@ -29,7 +29,33 @@ body {
     z-index: 5;
 }
 
-/* THE FIX: Added margin:auto and max-height to prevent top-clipping on mobile */
+/* MUTE BUTTON STYLES */
+#muteBtn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 77, 109, 0.6);
+    border: 2px solid #fff;
+    color: white;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 100000;
+    pointer-events: auto;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+#muteBtn:active { transform: scale(0.9); }
+
+@media (min-width: 1024px) {
+    #muteBtn { top: 30px; right: 40px; width: 55px; height: 55px; font-size: 1.5rem; }
+}
+
 .content-area {
     width: 95%;
     max-width: 500px;
@@ -44,9 +70,7 @@ body {
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s;
 }
 
-.content-area::-webkit-scrollbar {
-    display: none;
-}
+.content-area::-webkit-scrollbar { display: none; }
 
 .story-out-next { transform: translateX(-120%) rotateY(60deg) scale(0.8); opacity: 0; }
 .story-out-prev { transform: translateX(120%) rotateY(-60deg) scale(0.8); opacity: 0; }
@@ -57,7 +81,6 @@ body {
     100% { transform: scale(1); opacity: 1; }
 }
 
-/* THE FIX: Dynamic sizing for the GIF so it scales down on phones */
 .story-gif {
     width: clamp(120px, 35vw, 180px); 
     border-radius: 15px;
@@ -75,7 +98,6 @@ h1 {
     margin-bottom: 5px;
 }
 
-/* THE FIX: Scaled down the minimum mobile font size to 1.3rem */
 p { 
     font-family: 'Licorice', cursive; 
     font-size: clamp(1.3rem, 5.5vw, 2.4rem); 
