@@ -9,13 +9,13 @@ const pngs = {
 };
 
 const stories = [
-    { gif: "gif2.gif", p: "rose", title: "Rose Day", text: "chellaameee, you are the most beautiful flower in my universe." },
-    { gif: "gif3.gif", p: "ring", title: "Propose Day", text: "thangameee, I want to spend forever with you." },
-    { gif: "gif4.gif", p: "choco", title: "Chocolate Day", text: "vairameeeeeee, you are sweeter than any chocolate." },
-    { gif: "gif5.gif", p: "teddy", title: "Teddy Day", text: "pondatiiiiiiiiiiii, you are my ultimate comfort." },
-    { gif: "gif6.gif", p: "promise", title: "Promise Day", text: "azhagiiiiiiiiiiiiiii, I promise to hold your hand forever." },
-    { gif: "gif7.gif", p: "hug", title: "Hug Day", text: "baby gurllllllllll, un kooda irukardhu thaan enaku happiness." },
-    { gif: "gif8.gif", p: "kiss", title: "Kiss Day", text: "milkcake ehhhhh, one kiss from you makes everything better." }
+    { gif: "gif2.gif", p: "rose", title: "My Red Rose 🌹", text: "En chellaame, intha ulagathulaye romba azhagana rose nee thaan. You make my life bloom every single day." },
+    { gif: "gif3.gif", p: "ring", title: "My Forever 💍", text: "Thangame, I don't just want a Valentine. I want you for 7 lifetimes. En koodave irupiya?" },
+    { gif: "gif4.gif", p: "choco", title: "Sweetest Soul 🍫", text: "Vairame, candy and chocolate are nothing compared to your sweetness. Un udhadu thaan enaku sugar-eh!" },
+    { gif: "gif5.gif", p: "teddy", title: "My Cuddle Partner 🧸", text: "Pondatiii, whenever I feel tired, thinking of your hug is my only medicine. You are my world's cutest teddy." },
+    { gif: "gif6.gif", p: "promise", title: "My Solemn Promise 🤝", text: "Azhagiye, no matter how hard life gets, I will never let go of your hand. That is my Sathiyam to you." },
+    { gif: "gif7.gif", p: "hug", title: "Safe Heaven 🤗", text: "Un madiyil saayum pothu kedaikura nimmathi vera engayum kedaikaathu. You are my home, baby girl." },
+    { gif: "gif8.gif", p: "kiss", title: "Pure Magic 💋", text: "Milkcake-ey, every time you kiss me, time stops. I'm so lucky to be your man." }
 ];
 
 let currentStep = -1;
@@ -27,14 +27,18 @@ function startJourney() { nextStory(); }
 
 function nextStory() {
     currentStep++;
-    inkContent.classList.add("hidden");
-
+    
     let currentPNG = "kiss";
     if (currentStep < stories.length) currentPNG = stories[currentStep].p;
 
-    for(let i = 0; i < 45; i++) {
-        setTimeout(() => spawnPNG(pngs[currentPNG]), i * 45);
+    // Pop stickers (They don't vanish anymore)
+    for(let i = 0; i < 35; i++) {
+        setTimeout(() => spawnSticker(pngs[currentPNG]), i * 40);
     }
+
+    setTimeout(() => {
+        inkContent.classList.add("hidden");
+    }, 800);
 
     setTimeout(() => {
         if (currentStep < stories.length) {
@@ -46,49 +50,58 @@ function nextStory() {
             loadProposal();
         }
         inkContent.classList.remove("hidden");
-    }, 1500);
+    }, 1800);
 }
 
-function spawnPNG(url) {
+function spawnSticker(url) {
     let img = document.createElement("img");
     img.src = url;
-    img.className = "falling-png";
-    let startX = (Math.random() * 100) + "vw";
-    img.style.setProperty('--startX', startX);
-    img.style.left = startX;
-    img.style.width = (Math.random() * 40 + 70) + "px";
-    img.style.animationDuration = (Math.random() * 2 + 2) + "s";
+    img.className = "stuck-png";
+    img.style.left = (Math.random() * 85 + 2) + "vw";
+    img.style.top = (Math.random() * 85 + 2) + "vh";
+    let randomRot = (Math.random() * 60 - 30) + "deg";
+    img.style.setProperty('--rotation', randomRot);
+    img.style.width = (Math.random() * 40 + 60) + "px";
     fxLayer.appendChild(img);
-    setTimeout(() => img.remove(), 4000);
 }
 
 function loadProposal() {
     mainGif.src = "gif9.gif";
-    document.getElementById("titleText").innerText = "My Pondati...";
-    document.getElementById("msgText").innerText = "Will you be my Valentine forever?";
+    document.getElementById("titleText").innerText = "En Uyir Pondati...";
+    document.getElementById("msgText").innerText = "Will you be my Valentine forever and ever?";
     document.getElementById("actionArea").innerHTML = `
         <div class="btn-group">
             <button id="btnYes" onclick="showFinal()">Yes! ❤️</button>
             <button id="btnNo" onmouseover="dodge()" ontouchstart="dodge()">No</button>
         </div>
     `;
+    // Start the dodging behavior immediately for fun
+    dodge();
 }
 
 function showFinal() {
     inkContent.classList.add("hidden");
-    for(let i = 0; i < 65; i++) setTimeout(() => spawnPNG(pngs.kiss), i * 35);
+    // Final burst of kisses
+    for(let i = 0; i < 60; i++) setTimeout(() => spawnSticker(pngs.kiss), i * 30);
+    
     setTimeout(() => {
         mainGif.src = "gif10.gif";
         document.getElementById("titleText").innerText = "Yayyy! 🎉";
-        document.getElementById("msgText").innerText = "Happy Valentine's Day! Love you 3000! ❤️";
-        document.getElementById("actionArea").innerHTML = "";
+        document.getElementById("msgText").innerText = "Happy Valentine's Day! Love you more than anything! ❤️";
+        
+        // ADD CALL BUTTON
+        document.getElementById("actionArea").innerHTML = `
+            <a href="tel:9353781514" class="call-btn">Call your purushan 📞</a>
+        `;
         inkContent.classList.remove("hidden");
     }, 1500);
 }
 
 function dodge() {
     const btn = document.getElementById("btnNo");
-    btn.style.position = "absolute";
-    btn.style.left = Math.random() * (window.innerWidth - 100) + "px";
-    btn.style.top = Math.random() * (window.innerHeight - 50) + "px";
+    if (!btn) return;
+    btn.style.position = "fixed";
+    btn.style.left = Math.random() * (window.innerWidth - 120) + "px";
+    btn.style.top = Math.random() * (window.innerHeight - 60) + "px";
 }
+

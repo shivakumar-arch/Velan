@@ -22,15 +22,13 @@ body {
     position: fixed;
     top: 0; left: 0; width: 100vw; height: 100vh;
     pointer-events: none;
-    z-index: 1000;
-    /* This enables the 3D depth */
-    perspective: 1200px; 
+    z-index: 5; /* Behind the text but above background */
 }
 
 .content-area {
     width: 95%;
     max-width: 450px;
-    z-index: 10;
+    z-index: 100; /* Keeps text above stickers */
     text-align: center;
 }
 
@@ -69,44 +67,34 @@ p {
     margin-bottom: 20px;
 }
 
-.next-btn, #btnYes, #btnNo {
+.next-btn, #btnYes, #btnNo, .call-btn {
     background: rgba(255, 77, 109, 0.9);
     color: white;
     border: 2px solid #fff;
-    padding: 12px 35px;
+    padding: 12px 30px;
     font-size: 1.8rem;
     font-family: 'Caveat', cursive;
     border-radius: 50px;
     cursor: pointer;
     box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-    transition: transform 0.2s;
+    text-decoration: none;
+    display: inline-block;
 }
 
-.next-btn:active { transform: scale(0.95); }
+#btnYes { background: #4CAF50; }
+.call-btn { background: #25D366; margin-top: 20px; border-color: #fff; }
 
 .btn-group { display: flex; justify-content: center; gap: 20px; margin-top: 10px; }
-#btnYes { background: #4CAF50; }
 
-/* 3D FALLING PNGs CONFIG */
-.falling-png {
+/* STICKER LOGIC */
+.stuck-png {
     position: fixed;
-    top: -150px;
     will-change: transform;
-    animation: fallAndTumble linear forwards;
-    filter: drop-shadow(8px 12px 6px rgba(0,0,0,0.4));
-    transform-style: preserve-3d;
+    animation: popAndStay 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    filter: drop-shadow(5px 5px 10px rgba(0,0,0,0.4));
 }
 
-@keyframes fallAndTumble {
-    0% { 
-        transform: translate3d(var(--startX), -100px, 0) rotateX(0deg) rotateY(0deg) rotateZ(0deg); 
-        opacity: 0; 
-    }
-    10% { opacity: 1; }
-    90% { opacity: 1; }
-    100% { 
-        /* Tumbles 2 full rotations while falling past the screen */
-        transform: translate3d(var(--startX), 120vh, 400px) rotateX(720deg) rotateY(360deg) rotateZ(180deg); 
-        opacity: 0; 
-    } 
+@keyframes popAndStay {
+    0% { transform: scale(0) rotate(-30deg); opacity: 0; }
+    100% { transform: scale(1) rotate(var(--rotation)); opacity: 1; }
 }
