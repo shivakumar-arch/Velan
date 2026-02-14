@@ -3,56 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Will You Be Mine?</title>
+    <title>For My Chellam ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<div id="app">
+    <div id="transition-layer"></div>
 
-    <section class="page active" id="page1">
-        <div class="bg bg1"></div>
-        <div class="content">
-            <h1>Will you be my Valentine?</h1>
-            <div class="buttons">
-                <button id="yesBtn">YES ❤️</button>
-                <button id="noBtn">NO</button>
+    <div class="vintage-paper unwrap-anim" id="paperCard">
+        <div class="ink-content" id="inkContent">
+            
+            <img id="mainGif" src="https://media.tenor.com/yCFHzEvKa9MAAAAj/hello.gif" class="story-gif" alt="Cute GIF">
+            
+            <h1 id="titleText">Hi Pondati</h1>
+            <p id="msgText">I wrote you a letter. Are you ready to open it?</p>
+            
+            <div id="actionArea">
+                <button class="next-btn" onclick="startJourney()">Open Letter 💌</button>
             </div>
+
         </div>
-    </section>
+    </div>
 
-    <section class="page" id="page2">
-        <div class="bg bg2"></div>
-        <div class="paper">
-            <img src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f339.svg" class="corner-flower" alt="Rose">
-            <p>On Rose Day, I choose you again and again.</p>
-            <p class="name-text">chellaameee</p>
-            <button onclick="showPage(3)">Next Page 📖</button>
-        </div>
-    </section>
-
-    <section class="page" id="page3">
-        <div class="bg bg3"></div>
-        <div class="chocolate-rain" id="chocoLayer"></div>
-        <div class="paper">
-            <p>You are sweeter than every chocolate.</p>
-            <p class="name-text">thangameee</p>
-            <button onclick="showPage(4)">Next Page 📖</button>
-        </div>
-    </section>
-
-    <section class="page" id="page4">
-        <div class="bg bg4"></div>
-        <div class="kiss-rain" id="kissLayer"></div>
-        <div class="paper">
-            <p>Your love fills my entire world.</p>
-            <p class="name-text">baby gurllllllllll</p>
-        </div>
-    </section>
-
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
