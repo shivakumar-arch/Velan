@@ -5,31 +5,31 @@ const pngs = {
 
 const stories = [
     { 
-        gif: "gif2.gif", p: "rose", title: "Happy Rose Day 🌹", 
+        gif: "gif2.gif", p: "rose", title: "Happy Rose Day", 
         text: "En chellaame, intha ulagathulaye romba azhagana rose nee thaan. You make my life bloom every single day. Just like a rose, you are delicate and beautiful, but you have the strength to stand tall. I want to spend every season of my life watching you grow and bloom." 
     },
     { 
-        gif: "gif3.gif", p: "ring", title: "Happy Propose Day 💍", 
+        gif: "gif3.gif", p: "ring", title: "Happy Propose Day", 
         text: "Thangame, I want you for 7 lifetimes. En koodave irupiya? I don't just want a Valentine for a day; I want a partner for every adventure, a soul to share my silences with, and a hand to hold when the world gets loud. You are my best decision and my greatest dream." 
     },
     { 
-        gif: "gif4.gif", p: "choco", title: "Happy Chocolate Day 🍫", 
+        gif: "gif4.gif", p: "choco", title: "Happy Chocolate Day", 
         text: "Vairame, candy and chocolate are nothing compared to your sweetness. Un udhadu thaan enaku sugar-eh! Life with you is like a box of the finest chocolates—every moment is a different flavor of happiness. You melt away my stress just by being near me." 
     },
     { 
-        gif: "gif5.gif", p: "teddy", title: "Happy Teddy Day 🧸", 
+        gif: "gif5.gif", p: "teddy", title: "Happy Teddy Day", 
         text: "Pondatiii, you are my world's cutest teddy. You are my comfort zone, my safe space, and the person I want to hug tight at the end of every long day. No matter how much I grow up, I will always need my favorite teddy bear to make me feel at home." 
     },
     { 
-        gif: "gif6.gif", p: "promise", title: "Happy Promise Day 🤝", 
+        gif: "gif6.gif", p: "promise", title: "Happy Promise Day", 
         text: "Azhagiye, I will never let go of your hand. That is my Sathiyam. I promise to be your biggest supporter and your softest place to land. I promise to choose you every single day, over and over, without doubt. Through the highs and lows, my promise is unbreakable." 
     },
     { 
-        gif: "gif7.gif", p: "hug", title: "Happy Hug Day 🤗", 
+        gif: "gif7.gif", p: "hug", title: "Happy Hug Day", 
         text: "Un madiyil saayum pothu kedaikura nimmathi vera engayum kedaikaathu. You are my home, baby girl. A hug from you feels like the universe is finally in alignment. It is the place where all my fears disappear and only peace remains." 
     },
     { 
-        gif: "gif8.gif", p: "kiss", title: "Happy Kiss Day 💋", 
+        gif: "gif8.gif", p: "kiss", title: "Happy Kiss Day", 
         text: "Milkcake-ey, every time you kiss me, time stops. I'm so lucky to be your man. That one single touch makes me feel like I can conquer the world. It is the silent way our souls communicate, telling each other things words could never capture." 
     }
 ];
