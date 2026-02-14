@@ -1,12 +1,41 @@
-// Reliable Tenor GIF Links
+// Bulletproof Icons8 3D PNGs. 
+// "img" is the main floating image. "fallImg" is the raining image.
 const stories = [
-    { gif: "https://media.tenor.com/lM5zS9-rFp4AAAAi/bubu-dudu-bubu.gif", title: "Rose Day", text: "chellaameee, a single rose is beautiful, but it completely pales in comparison to you." },
-    { gif: "https://media.tenor.com/A65_bB1EtiMAAAAi/peach-cat-propose.gif", title: "Propose Day", text: "thangameee, I want to spend every single second of my life unfolding my love for you." },
-    { gif: "https://media.tenor.com/Jb9kGfK4nLEAAAAi/bubu-dudu-bubu.gif", title: "Chocolate Day", text: "vairameeeeeee, my life is infinitely sweeter simply because you are a part of it." },
-    { gif: "https://media.tenor.com/8QGzQ21mJg4AAAAi/tkthao219-bubududu.gif", title: "Teddy Day", text: "pondatiiiiiiiiiiii, you are my ultimate peace and my absolute favorite safe space." },
-    { gif: "https://media.tenor.com/39hP_IqW2J0AAAAi/pink-and.gif", title: "Promise Day", text: "azhagiiiiiiiiiiiiiii, I promise to hold your hand through every dark night." },
-    { gif: "https://media.tenor.com/Ztw1z9dF8D4AAAAi/bubu-dudu-bubu.gif", title: "Hug Day", text: "baby gurllllllllll, wrapping my arms around you is the only magic I need." },
-    { gif: "https://media.tenor.com/vH9ZJ4n0pU0AAAAi/tkthao219-bubududu.gif", title: "Kiss Day", text: "milkcake ehhhhh, one kiss from you makes the whole world fade away." }
+    { 
+        img: "https://img.icons8.com/fluency/240/rose.png", 
+        fallImg: "https://img.icons8.com/fluency/96/rose.png", 
+        title: "Rose Day", text: "chellaameee, a single rose is beautiful, but it completely pales in comparison to you." 
+    },
+    { 
+        img: "https://img.icons8.com/fluency/240/diamond-ring.png", 
+        fallImg: "https://img.icons8.com/fluency/96/diamond-ring.png", 
+        title: "Propose Day", text: "thangameee, I want to spend every single second of my life unfolding my love for you." 
+    },
+    { 
+        img: "https://img.icons8.com/fluency/240/chocolate-bar.png", 
+        fallImg: "https://img.icons8.com/fluency/96/chocolate-bar.png", 
+        title: "Chocolate Day", text: "vairameeeeeee, my life is infinitely sweeter simply because you are a part of it." 
+    },
+    { 
+        img: "https://img.icons8.com/fluency/240/teddy-bear.png", 
+        fallImg: "https://img.icons8.com/fluency/96/teddy-bear.png", 
+        title: "Teddy Day", text: "pondatiiiiiiiiiiii, you are my ultimate peace and my absolute favorite safe space." 
+    },
+    { 
+        img: "https://img.icons8.com/fluency/240/handshake.png", 
+        fallImg: "https://img.icons8.com/fluency/96/handshake.png", 
+        title: "Promise Day", text: "azhagiiiiiiiiiiiiiii, I promise to hold your hand through every dark night." 
+    },
+    { 
+        img: "https://img.icons8.com/fluency/240/hugging-face.png", 
+        fallImg: "https://img.icons8.com/fluency/96/hugging-face.png", 
+        title: "Hug Day", text: "baby gurllllllllll, wrapping my arms around you is the only magic I need." 
+    },
+    { 
+        img: "https://img.icons8.com/color/240/lips--v1.png", 
+        fallImg: "https://img.icons8.com/color/96/lips--v1.png", 
+        title: "Kiss Day", text: "milkcake ehhhhh, one kiss from you makes the whole world fade away." 
+    }
 ];
 
 let currentStep = -1;
@@ -15,46 +44,26 @@ const inkContent = document.getElementById("inkContent");
 const fxLayer = document.getElementById("transition-layer");
 const mainGif = document.getElementById("mainGif");
 
-// Realistic PNG URLs for each day
-const pngUrls = {
-    'rose': 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Rosa_Precious_Platinum.jpg/240px-Rosa_Precious_Platinum.jpg', // Realistic Red Rose
-    'propose': 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Diamond_ring.png/240px-Diamond_ring.png', // Realistic Ring
-    'choco': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Chocolate.png/240px-Chocolate.png', // Realistic Chocolate Bar
-    'teddy': 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Teddy_bear.png/240px-Teddy_bear.png', // Realistic Teddy Bear
-    'promise': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Pinky_promise.png/240px-Pinky_promise.png', // Realistic Pinky Promise
-    'hug': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Hugging_emoji.png/240px-Hugging_emoji.png', // Realistic Hug
-    'kiss': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Kiss_mark_lipstick.svg/512px-Kiss_mark_lipstick.svg.png' // Your specific lipstick kiss
-};
-
 function startJourney() {
     nextStory();
 }
 
 function nextStory() {
     currentStep++;
-    
     inkContent.classList.add("hidden");
 
-    let animType = 'rose'; // Default
+    // Get the exact raining image for this specific day
+    let currentFallImg = "https://img.icons8.com/color/96/lips--v1.png"; // Default to kiss
     if (currentStep < stories.length) {
-        let title = stories[currentStep].title.toLowerCase();
-        if (title.includes("rose")) animType = 'rose';
-        else if (title.includes("propose")) animType = 'propose';
-        else if (title.includes("chocolate")) animType = 'choco';
-        else if (title.includes("teddy")) animType = 'teddy';
-        else if (title.includes("promise")) animType = 'promise';
-        else if (title.includes("hug")) animType = 'hug';
-        else if (title.includes("kiss")) animType = 'kiss';
-    } else if (currentStep === 7) {
-        animType = 'kiss'; 
+        currentFallImg = stories[currentStep].fallImg;
     }
 
-    // Trigger MASSIVE screen fill
-    triggerScreenFill(animType);
+    // Trigger lag-free screen fill
+    triggerScreenFill(currentFallImg);
 
     setTimeout(() => {
         if (currentStep < stories.length) {
-            mainGif.src = stories[currentStep].gif;
+            mainGif.src = stories[currentStep].img;
             document.getElementById("titleText").innerText = stories[currentStep].title;
             document.getElementById("msgText").innerText = stories[currentStep].text;
             document.getElementById("actionArea").innerHTML = `<button class="next-btn" onclick="nextStory()">Next Page 📖</button>`;
@@ -67,11 +76,11 @@ function nextStory() {
         paperCard.classList.add("unwrap-anim");
         inkContent.classList.remove("hidden");
 
-    }, 2000); // 2 second delay for items to fall
+    }, 1500); // Wait for items to cover screen before revealing text
 }
 
 function loadProposal() {
-    mainGif.src = "https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif";
+    mainGif.src = "https://img.icons8.com/fluency/240/heart-with-pulse.png";
     document.getElementById("titleText").innerText = "My Pondati...";
     document.getElementById("msgText").innerText = "Will you do me the absolute honor of being my Valentine forever?";
     document.getElementById("actionArea").innerHTML = `
@@ -84,10 +93,10 @@ function loadProposal() {
 
 function showFinal() {
     inkContent.classList.add("hidden");
-    triggerScreenFill('kiss'); 
+    triggerScreenFill("https://img.icons8.com/color/96/lips--v1.png"); 
 
     setTimeout(() => {
-        mainGif.src = "https://media.tenor.com/IVKKi1R5uc4AAAAi/goma-happy.gif";
+        mainGif.src = "https://img.icons8.com/fluency/240/partying-face.png";
         document.getElementById("titleText").innerText = "She said YES! 🎉";
         document.getElementById("msgText").innerText = "Happy Valentine's Day! I love you to the moon and back!";
         document.getElementById("actionArea").innerHTML = ""; 
@@ -97,52 +106,44 @@ function showFinal() {
         paperCard.classList.add("unwrap-anim");
         inkContent.classList.remove("hidden");
         
-        setInterval(() => spawnItem('kiss'), 600);
-    }, 2000);
+    }, 1500);
 }
 
-// --- BULLETPROOF SCREEN FILLING ENGINE ---
+// --- OPTIMIZED, LAG-FREE SCREEN FILLING ENGINE ---
 
-function triggerScreenFill(type) {
-    // Spawns 150 items to cover the screen
-    for(let i = 0; i < 150; i++) {
+function triggerScreenFill(imgSrc) {
+    // Reduced to 45 items to prevent mobile lag, but made them larger
+    for(let i = 0; i < 45; i++) {
         setTimeout(() => {
-            spawnItem(type);
-        }, i * 20); // Spawns very rapidly
+            spawnItem(imgSrc);
+        }, i * 30); 
     }
 }
 
-function spawnItem(type) {
-    let item = document.createElement("div");
-    item.classList.add("falling-item");
-    
+function spawnItem(imgSrc) {
     let img = document.createElement("img");
-    img.src = pngUrls[type];
+    img.src = imgSrc;
+    img.classList.add("falling-item");
     
-    if (type === 'kiss') {
-        img.classList.add("kiss-png");
-    } else {
-        img.classList.add("falling-png");
-    }
+    // Size is larger so fewer items are needed to cover the screen
+    let size = Math.random() * 0.8 + 0.8; 
+    let duration = Math.random() * 1.5 + 2; 
+    let startX = (Math.random() * 100) + "vw";
     
-    item.appendChild(img);
+    // Assign CSS variables for hardware acceleration
+    img.style.setProperty('--startX', startX);
+    img.style.transform = `scale(${size})`;
+    img.style.animationDuration = duration + "s";
     
-    item.style.left = (Math.random() * 100) + "vw";
-    let size = Math.random() * 0.8 + 0.6; 
-    item.style.transform = `scale(${size})`;
-    
-    let duration = Math.random() * 2 + 2.5; 
-    item.style.animationDuration = duration + "s";
-    
-    fxLayer.appendChild(item);
-    setTimeout(() => item.remove(), duration * 1000);
+    fxLayer.appendChild(img);
+    setTimeout(() => img.remove(), duration * 1000);
 }
 
 function dodge() {
     const btnNo = document.getElementById("btnNo");
     btnNo.style.position = "absolute";
-    const maxX = window.innerWidth - btnNo.clientWidth - 40;
-    const maxY = window.innerHeight - btnNo.clientHeight - 40; 
-    btnNo.style.left = Math.max(20, Math.random() * maxX) + "px";
-    btnNo.style.top = Math.max(20, Math.random() * maxY) + "px";
+    const maxX = window.innerWidth - btnNo.clientWidth - 20;
+    const maxY = window.innerHeight - btnNo.clientHeight - 20; 
+    btnNo.style.left = Math.max(10, Math.random() * maxX) + "px";
+    btnNo.style.top = Math.max(10, Math.random() * maxY) + "px";
 }

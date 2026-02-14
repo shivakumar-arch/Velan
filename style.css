@@ -1,9 +1,8 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    /* Dark, aesthetic background to make the vintage letter pop */
     background-color: #1a1a1a;
-    background-image: radial-gradient(circle, #333 0%, #000 100%);
+    background-image: radial-gradient(circle, #2a2a2a 0%, #000 100%);
     height: 100vh;
     overflow: hidden;
     display: flex;
@@ -15,37 +14,31 @@ body {
 #transition-layer {
     position: fixed;
     top: 0; left: 0; width: 100vw; height: 100vh;
-    pointer-events: none; /* Allows you to click the buttons underneath */
+    pointer-events: none;
     z-index: 1000;
-    overflow: hidden;
 }
 
-/* THE VINTAGE BURNT PAPER LOOK */
+/* THE VINTAGE BURNT PAPER LOOK - ZERO BORDERS */
 .vintage-paper {
     width: 90%;
     max-width: 400px;
-    min-height: 500px; /* Increased height for content */
-    padding: 40px 25px;
+    min-height: 480px; 
+    padding: 40px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     z-index: 10;
     
-    /* Vintage Paper Colors and Textures */
     background-color: #dcb88e; 
     background-image: url('https://www.transparenttextures.com/patterns/old-wall.png');
     
-    /* Burnt/Darkened Edges using Shadow */
     box-shadow: inset 0 0 60px rgba(90, 40, 10, 0.9), 10px 15px 30px rgba(0,0,0,0.8);
-    
-    /* Irregular torn paper edges */
     border-radius: 3px 12px 5px 18px;
-    border: 1px solid rgba(90, 40, 10, 0.3);
+    border: none; /* FORCED NO BORDER */
 }
 
-/* Paper unfolding animation */
-.unwrap-anim { animation: unwrapPaper 1s ease-out forwards; }
+.unwrap-anim { animation: unwrapPaper 0.8s ease-out forwards; }
 @keyframes unwrapPaper {
     0% { transform: scale(0.6) rotate(-5deg); opacity: 0; }
     100% { transform: scale(1) rotate(0deg); opacity: 1; }
@@ -57,70 +50,61 @@ body {
     align-items: center;
     width: 100%;
     opacity: 1;
-    transition: opacity 0.4s ease;
+    transition: opacity 0.3s ease;
 }
 .ink-content.hidden { opacity: 0; }
 
-.story-gif {
-    width: 100%;
-    max-height: 180px;
-    object-fit: cover;
-    border-radius: 8px;
+/* ZERO BORDERS, CSS FLOATING ANIMATION INSTEAD OF GIFS */
+.story-img {
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
     margin-bottom: 25px;
-    box-shadow: 3px 5px 12px rgba(0,0,0,0.4);
-    border: 2px solid rgba(90, 40, 10, 0.5);
+    border: none !important; 
+    outline: none !important;
+    background: transparent;
+    animation: float 3s ease-in-out infinite; /* Makes the static PNG float */
+}
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
 }
 
-/* Dark red/brown dried ink text */
-h1 { font-size: 3.2rem; margin-bottom: 15px; font-weight: 700; color: #721c24; line-height: 1; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
-p { font-size: 1.9rem; line-height: 1.3; font-weight: 700; margin-bottom: 30px; color: #3e1f10; }
+h1 { font-size: 3.2rem; margin-bottom: 15px; font-weight: 700; color: #721c24; line-height: 1; }
+p { font-size: 2rem; line-height: 1.2; font-weight: 700; margin-bottom: 30px; color: #3e1f10; }
 
-/* THE BIG, CLEAR NEXT BUTTON */
 .next-btn {
-    background-color: transparent;
+    background-color: rgba(255,255,255,0.15);
     color: #721c24;
     border: 3px solid #721c24;
-    padding: 12px 40px;
-    font-size: 1.7rem;
+    padding: 10px 35px;
+    font-size: 1.8rem;
     font-family: 'Caveat', cursive;
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
     transition: all 0.2s;
-    background-color: rgba(255,255,255,0.15);
-    box-shadow: 2px 3px 5px rgba(0,0,0,0.2);
 }
 .next-btn:active { background-color: #721c24; color: #dcb88e; transform: scale(0.95); }
 
-/* Yes / No Buttons */
 .btn-group { 
     display: flex; 
     justify-content: center; 
-    gap: 25px; 
+    gap: 20px; 
     width: 100%; 
     margin-top: 10px;
 }
-#btnYes { background-color: #2b5329; color: white; border: none; padding: 12px 40px; font-size: 1.7rem; border-radius: 4px; font-family: 'Caveat', cursive; box-shadow: 2px 3px 5px rgba(0,0,0,0.3);}
-#btnNo { background-color: #721c24; color: white; border: none; padding: 12px 40px; font-size: 1.7rem; border-radius: 4px; font-family: 'Caveat', cursive; transition: 0.2s; box-shadow: 2px 3px 5px rgba(0,0,0,0.3);}
+#btnYes { background-color: #2b5329; color: white; border: none; padding: 12px 35px; font-size: 1.8rem; border-radius: 4px; font-family: 'Caveat', cursive;}
+#btnNo { background-color: #721c24; color: white; border: none; padding: 12px 35px; font-size: 1.8rem; border-radius: 4px; font-family: 'Caveat', cursive; transition: 0.1s;}
 
-/* FALLING ITEMS (Chocolates & Kisses) */
+/* LAG-FREE FALLING ITEMS */
 .falling-item {
-    position: absolute;
-    top: -100px; 
+    position: fixed;
+    top: -150px;
+    will-change: transform; /* Hardware Acceleration to fix phone lag */
     animation: fallAndStack linear forwards;
 }
 @keyframes fallAndStack {
-    0% { transform: translateY(0) rotate(0deg); }
-    100% { transform: translateY(115vh) rotate(360deg); } 
-}
-
-/* Realistic PNGs for falling items */
-.falling-png {
-    width: 60px; /* Default size */
-    filter: drop-shadow(3px 5px 5px rgba(0,0,0,0.5));
-}
-.kiss-png {
-    width: 80px;
-    filter: drop-shadow(2px 4px 5px rgba(0,0,0,0.5));
-    opacity: 0.95;
+    0% { transform: translate3d(var(--startX), -100px, 0) rotate(0deg); }
+    100% { transform: translate3d(var(--startX), 115vh, 0) rotate(360deg); } 
 }
