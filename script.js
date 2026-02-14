@@ -59,9 +59,9 @@ window.showFinal = function() {
         document.getElementById("msgText").innerHTML = `
             Every single day with you feels like a beautiful dream that I never want to wake up from. You are my soulmate, my best friend, and the love of my life. I am so incredibly grateful to have you by my side. <br><br>
             Our journey is just beginning, and I cannot wait to see all the beautiful memories we will create together. You make me a better person just by being in my life. I promise to cherish you, respect you, and love you unconditionally for the rest of our days. <br><br>
-            You are my everything, <strong>en chellam</strong>. My heart belongs to you now and forever. Thank you for being the most amazing <strong>pondati</strong> a man could ever ask for. I love you more than all the stars in the sky.
+            You are my everything, <strong>en chellam</strong>. My heart belongs to you now and forever. Thank you for being the most amazing <strong>pondati</strong> a man could ever ask for. I loooooooovvvvvvveeeeeeee yooooouuuuuuu.
         `;
-        document.getElementById("actionArea").innerHTML = `<a href="tel:6383264697" class="call-btn">Call your purushan 📞</a>`;
+        document.getElementById("actionArea").innerHTML = `<a href="tel:9353781514" class="call-btn">Call your purushan 📞</a>`;
         paperCard.classList.add("story-in");
         setTimeout(() => paperCard.classList.remove("story-in"), 600);
     }, 400);
