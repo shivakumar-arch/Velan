@@ -1,88 +1,73 @@
-// Bulletproof Icons8 3D PNGs. 
-// "img" is the main floating image. "fallImg" is the raining image.
+// Realistic 3D PNG Links
+const pngs = {
+    rose: "https://img.icons8.com/fluency/96/rose.png",
+    ring: "https://img.icons8.com/fluency/96/diamond-ring.png",
+    choco: "https://img.icons8.com/fluency/96/chocolate-bar.png",
+    teddy: "https://img.icons8.com/fluency/96/teddy-bear.png",
+    promise: "https://img.icons8.com/fluency/96/handshake.png",
+    hug: "https://img.icons8.com/fluency/96/hugging-face.png",
+    kiss: "https://img.icons8.com/color/96/lips--v1.png"
+};
+
 const stories = [
-    { 
-        img: "https://img.icons8.com/fluency/240/rose.png", 
-        fallImg: "https://img.icons8.com/fluency/96/rose.png", 
-        title: "Rose Day", text: "chellaameee, a single rose is beautiful, but it completely pales in comparison to you." 
-    },
-    { 
-        img: "https://img.icons8.com/fluency/240/diamond-ring.png", 
-        fallImg: "https://img.icons8.com/fluency/96/diamond-ring.png", 
-        title: "Propose Day", text: "thangameee, I want to spend every single second of my life unfolding my love for you." 
-    },
-    { 
-        img: "https://img.icons8.com/fluency/240/chocolate-bar.png", 
-        fallImg: "https://img.icons8.com/fluency/96/chocolate-bar.png", 
-        title: "Chocolate Day", text: "vairameeeeeee, my life is infinitely sweeter simply because you are a part of it." 
-    },
-    { 
-        img: "https://img.icons8.com/fluency/240/teddy-bear.png", 
-        fallImg: "https://img.icons8.com/fluency/96/teddy-bear.png", 
-        title: "Teddy Day", text: "pondatiiiiiiiiiiii, you are my ultimate peace and my absolute favorite safe space." 
-    },
-    { 
-        img: "https://img.icons8.com/fluency/240/handshake.png", 
-        fallImg: "https://img.icons8.com/fluency/96/handshake.png", 
-        title: "Promise Day", text: "azhagiiiiiiiiiiiiiii, I promise to hold your hand through every dark night." 
-    },
-    { 
-        img: "https://img.icons8.com/fluency/240/hugging-face.png", 
-        fallImg: "https://img.icons8.com/fluency/96/hugging-face.png", 
-        title: "Hug Day", text: "baby gurllllllllll, wrapping my arms around you is the only magic I need." 
-    },
-    { 
-        img: "https://img.icons8.com/color/240/lips--v1.png", 
-        fallImg: "https://img.icons8.com/color/96/lips--v1.png", 
-        title: "Kiss Day", text: "milkcake ehhhhh, one kiss from you makes the whole world fade away." 
-    }
+    { gif: "https://media1.tenor.com/m/lM5zS9-rFp4AAAAC/bubu-dudu-bubu.gif", p: "rose", title: "Rose Day", text: "chellaameee, you are the most beautiful flower in my universe." },
+    { gif: "https://media1.tenor.com/m/A65_bB1EtiMAAAAC/peach-cat-propose.gif", p: "ring", title: "Propose Day", text: "thangameee, I want to spend forever with you." },
+    { gif: "https://media1.tenor.com/m/Jb9kGfK4nLEAAAAC/bubu-dudu-bubu.gif", p: "choco", title: "Chocolate Day", text: "vairameeeeeee, you are sweeter than any chocolate." },
+    { gif: "https://media1.tenor.com/m/8QGzQ21mJg4AAAAC/tkthao219-bubududu.gif", p: "teddy", title: "Teddy Day", text: "pondatiiiiiiiiiiii, you are my ultimate comfort." },
+    { gif: "https://media1.tenor.com/m/39hP_IqW2J0AAAAC/pink-and.gif", p: "promise", title: "Promise Day", text: "azhagiiiiiiiiiiiiiii, I promise to hold your hand forever." },
+    { gif: "https://media1.tenor.com/m/Ztw1z9dF8D4AAAAC/bubu-dudu-bubu.gif", p: "hug", title: "Hug Day", text: "baby gurllllllllll, un kooda irukardhu thaan enaku happiness." },
+    { gif: "https://media1.tenor.com/m/vH9ZJ4n0pU0AAAAC/tkthao219-bubududu.gif", p: "kiss", title: "Kiss Day", text: "milkcake ehhhhh, one kiss from you makes everything better." }
 ];
 
 let currentStep = -1;
-const paperCard = document.getElementById("paperCard");
 const inkContent = document.getElementById("inkContent");
 const fxLayer = document.getElementById("transition-layer");
 const mainGif = document.getElementById("mainGif");
 
-function startJourney() {
-    nextStory();
-}
+function startJourney() { nextStory(); }
 
 function nextStory() {
     currentStep++;
     inkContent.classList.add("hidden");
 
-    // Get the exact raining image for this specific day
-    let currentFallImg = "https://img.icons8.com/color/96/lips--v1.png"; // Default to kiss
-    if (currentStep < stories.length) {
-        currentFallImg = stories[currentStep].fallImg;
-    }
+    let currentPNG = "kiss";
+    if (currentStep < stories.length) currentPNG = stories[currentStep].p;
 
-    // Trigger lag-free screen fill
-    triggerScreenFill(currentFallImg);
+    // Trigger Screen Fill with PNGs
+    for(let i = 0; i < 40; i++) {
+        setTimeout(() => spawnPNG(pngs[currentPNG]), i * 40);
+    }
 
     setTimeout(() => {
         if (currentStep < stories.length) {
-            mainGif.src = stories[currentStep].img;
+            mainGif.src = stories[currentStep].gif;
             document.getElementById("titleText").innerText = stories[currentStep].title;
             document.getElementById("msgText").innerText = stories[currentStep].text;
             document.getElementById("actionArea").innerHTML = `<button class="next-btn" onclick="nextStory()">Next Page 📖</button>`;
-        } else if (currentStep === 7) {
+        } else {
             loadProposal();
         }
-        
-        paperCard.classList.remove("unwrap-anim");
-        void paperCard.offsetWidth;
-        paperCard.classList.add("unwrap-anim");
         inkContent.classList.remove("hidden");
+    }, 1500);
+}
 
-    }, 1500); // Wait for items to cover screen before revealing text
+function spawnPNG(url) {
+    let img = document.createElement("img");
+    img.src = url;
+    img.className = "falling-png";
+    let startX = (Math.random() * 100) + "vw";
+    img.style.setProperty('--startX', startX);
+    img.style.left = startX;
+    img.style.width = (Math.random() * 40 + 60) + "px";
+    img.style.animationDuration = (Math.random() * 2 + 2) + "s";
+    fxLayer.appendChild(img);
+    setTimeout(() => img.remove(), 4000);
 }
 
 function loadProposal() {
-    mainGif.src = "https://img.icons8.com/fluency/240/heart-with-pulse.png";
+    mainGif.src = "https://media1.tenor.com/m/gUiu1zyxfzYAAAAC/bear-kiss-bear-kisses.gif";
     document.getElementById("titleText").innerText = "My Pondati...";
-    document.getElementById("msgText").innerText = "Will you do me the absolute honor of being my Valentine forever?";
+    document.getElementById("msgText").innerText = "Will you be my Valentine forever?";
     document.getElementById("actionArea").innerHTML = `
         <div class="btn-group">
             <button id="btnYes" onclick="showFinal()">Yes! ❤️</button>
@@ -93,57 +78,19 @@ function loadProposal() {
 
 function showFinal() {
     inkContent.classList.add("hidden");
-    triggerScreenFill("https://img.icons8.com/color/96/lips--v1.png"); 
-
+    for(let i = 0; i < 60; i++) setTimeout(() => spawnPNG(pngs.kiss), i * 30);
     setTimeout(() => {
-        mainGif.src = "https://img.icons8.com/fluency/240/partying-face.png";
-        document.getElementById("titleText").innerText = "She said YES! 🎉";
-        document.getElementById("msgText").innerText = "Happy Valentine's Day! I love you to the moon and back!";
-        document.getElementById("actionArea").innerHTML = ""; 
-        
-        paperCard.classList.remove("unwrap-anim");
-        void paperCard.offsetWidth;
-        paperCard.classList.add("unwrap-anim");
+        mainGif.src = "https://media1.tenor.com/m/IVKKi1R5uc4AAAAC/goma-happy.gif";
+        document.getElementById("titleText").innerText = "Yayyy! 🎉";
+        document.getElementById("msgText").innerText = "Happy Valentine's Day! Love you 3000! ❤️";
+        document.getElementById("actionArea").innerHTML = "";
         inkContent.classList.remove("hidden");
-        
     }, 1500);
 }
 
-// --- OPTIMIZED, LAG-FREE SCREEN FILLING ENGINE ---
-
-function triggerScreenFill(imgSrc) {
-    // Reduced to 45 items to prevent mobile lag, but made them larger
-    for(let i = 0; i < 45; i++) {
-        setTimeout(() => {
-            spawnItem(imgSrc);
-        }, i * 30); 
-    }
-}
-
-function spawnItem(imgSrc) {
-    let img = document.createElement("img");
-    img.src = imgSrc;
-    img.classList.add("falling-item");
-    
-    // Size is larger so fewer items are needed to cover the screen
-    let size = Math.random() * 0.8 + 0.8; 
-    let duration = Math.random() * 1.5 + 2; 
-    let startX = (Math.random() * 100) + "vw";
-    
-    // Assign CSS variables for hardware acceleration
-    img.style.setProperty('--startX', startX);
-    img.style.transform = `scale(${size})`;
-    img.style.animationDuration = duration + "s";
-    
-    fxLayer.appendChild(img);
-    setTimeout(() => img.remove(), duration * 1000);
-}
-
 function dodge() {
-    const btnNo = document.getElementById("btnNo");
-    btnNo.style.position = "absolute";
-    const maxX = window.innerWidth - btnNo.clientWidth - 20;
-    const maxY = window.innerHeight - btnNo.clientHeight - 20; 
-    btnNo.style.left = Math.max(10, Math.random() * maxX) + "px";
-    btnNo.style.top = Math.max(10, Math.random() * maxY) + "px";
+    const btn = document.getElementById("btnNo");
+    btn.style.position = "absolute";
+    btn.style.left = Math.random() * (window.innerWidth - 100) + "px";
+    btn.style.top = Math.random() * (window.innerHeight - 50) + "px";
 }
