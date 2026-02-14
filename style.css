@@ -1,9 +1,4 @@
-/* RESET & BASE STYLES */
-* { 
-    margin: 0; 
-    padding: 0; 
-    box-sizing: border-box; 
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
     height: 100vh;
@@ -12,55 +7,75 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* Deep Romantic Background Gradient */
     background: radial-gradient(circle at center, #2b0000 0%, #000000 100%);
+    perspective: 1500px; /* Enables 3D Story Transitions */
 }
 
-/* BACKGROUND IMAGE LAYER */
 #bg-layer {
     position: absolute;
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%;
+    top: 0; left: 0; width: 100%; height: 100%;
     background: url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
     filter: brightness(0.2) blur(2px);
     z-index: 1;
 }
 
-/* FLOATING STICKER LAYER (PNGs) */
 #transition-layer {
     position: fixed;
-    top: 0; 
-    left: 0; 
-    width: 100vw; 
-    height: 100vh;
+    top: 0; left: 0; width: 100vw; height: 100vh;
     pointer-events: none;
-    z-index: 5; /* Behind the text and GIF */
+    z-index: 5; /* Stickers behind text */
 }
 
-/* MAIN CONTENT CONTAINER */
+/* INTERACTIVE BUBBLES */
+#bubble-container {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    pointer-events: none;
+    z-index: 200; /* In front of everything */
+}
+
+.bubble {
+    position: absolute;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4), rgba(255, 182, 193, 0.2));
+    border-radius: 50%;
+    box-shadow: inset -5px -5px 10px rgba(255, 255, 255, 0.3), 0 0 10px rgba(255, 192, 203, 0.3);
+    pointer-events: auto;
+    cursor: pointer;
+    will-change: transform, opacity;
+    animation: floatUp linear forwards;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(110vh) scale(1); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-20vh) scale(1.2); opacity: 0; }
+}
+
+.bubble.popping { animation: popEffect 0.2s ease-out forwards !important; }
+@keyframes popEffect {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(2); opacity: 0; }
+}
+
+/* CONTENT AREA & TRANSITIONS */
 .content-area {
     width: 95%;
-    max-width: 650px;
-    max-height: 95vh;
-    z-index: 100; /* Above the sticker layer */
+    max-width: 600px;
+    z-index: 100;
     text-align: center;
     padding: 20px;
-    overflow-y: auto;
-    scrollbar-width: none; /* Firefox */
-}
-.content-area::-webkit-scrollbar { display: none; /* Chrome/Safari */ }
-
-/* FADE TRANSITION FOR CONTENT */
-.ink-content {
-    transition: opacity 0.4s ease-in-out;
-}
-.ink-content.hidden { 
-    opacity: 0; 
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s;
+    transform-style: preserve-3d;
 }
 
-/* GIF STYLING */
+.story-out { transform: translateX(-100%) rotateY(45deg) scale(0.8); opacity: 0; }
+.story-in { animation: storyEntry 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+@keyframes storyEntry {
+    0% { transform: translateX(100%) rotateY(-45deg) scale(0.8); opacity: 0; }
+    100% { transform: translateX(0) rotateY(0deg) scale(1); opacity: 1; }
+}
+
 .story-gif {
     width: 240px;
     max-width: 70%;
@@ -68,34 +83,14 @@ body {
     border-radius: 20px;
     margin-bottom: 15px;
     box-shadow: 0 0 25px rgba(255, 77, 109, 0.5);
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1/1;
     object-fit: cover;
 }
 
-/* HEADING STYLE - PLAYWRITE USA MODERN */
-h1 { 
-    font-family: 'Playwrite USA Modern', sans-serif;
-    font-size: clamp(1.8rem, 8vw, 2.8rem); 
-    color: #ff4d6d; 
-    text-shadow: 0 0 10px #000; 
-    margin-bottom: 10px;
-}
+h1 { font-family: 'Playwrite USA Modern', sans-serif; font-size: clamp(1.8rem, 8vw, 2.8rem); color: #ff4d6d; text-shadow: 0 0 10px #000; }
+p { font-family: 'Licorice', cursive; font-size: clamp(2rem, 7vw, 3rem); color: #ffffff; text-shadow: 0 0 8px #000; line-height: 1.1; margin-top: 10px; margin-bottom: 20px; }
 
-/* LOVE PARAGRAPH STYLE - LICORICE */
-p { 
-    font-family: 'Licorice', cursive;
-    /* Licorice is thin, so we use a larger font size for readability */
-    font-size: clamp(2rem, 7vw, 3rem); 
-    color: #ffffff; 
-    text-shadow: 0 0 8px #000; 
-    line-height: 1.1; 
-    margin-top: 5px;
-    margin-bottom: 20px;
-    letter-spacing: 1px;
-}
-
-/* BUTTON STYLES */
-.next-btn, #btnYes, #btnNo, .call-btn {
+.call-btn, #btnYes, #btnNo {
     font-family: 'Playwrite USA Modern', sans-serif;
     background: rgba(255, 77, 109, 0.9);
     color: white;
@@ -107,29 +102,14 @@ p {
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
-    transition: transform 0.2s ease;
-}
-
-.next-btn:active, #btnYes:active { 
-    transform: scale(0.95); 
+    position: relative;
+    z-index: 300;
 }
 
 #btnYes { background: #4CAF50; }
+.call-btn { background: #25D366; margin-top: 15px; }
+.btn-group { display: flex; justify-content: center; gap: 20px; margin-top: 15px; }
 
-.call-btn { 
-    background: #25D366; 
-    margin-top: 15px; 
-    border-color: #ffffff;
-}
-
-.btn-group { 
-    display: flex; 
-    justify-content: center; 
-    gap: 20px; 
-    margin-top: 15px; 
-}
-
-/* PNG FADING ANIMATION */
 .fading-png {
     position: fixed;
     z-index: 10;
@@ -138,30 +118,9 @@ p {
 }
 
 @keyframes fadeCycle {
-    0% { 
-        opacity: 0; 
-        transform: scale(0.6) rotate(var(--rotation)); 
-    }
-    25% { 
-        opacity: 0.8; 
-        transform: scale(1.1) rotate(var(--rotation)); 
-    }
-    75% { 
-        opacity: 0.8; 
-        transform: scale(1.1) rotate(var(--rotation)); 
-    }
-    100% { 
-        opacity: 0; 
-        transform: scale(0.9) rotate(var(--rotation)); 
-    }
+    0% { opacity: 0; transform: scale(0.6) rotate(var(--rotation)); }
+    20% { opacity: 0.8; transform: scale(1.1) rotate(var(--rotation)); }
+    80% { opacity: 0.8; transform: scale(1.1) rotate(var(--rotation)); }
+    100% { opacity: 0; transform: scale(0.9) rotate(var(--rotation)); }
 }
 
-/* RESPONSIVE TWEAKS FOR DESKTOP */
-@media (min-width: 1024px) {
-    .story-gif {
-        width: 280px;
-    }
-    .content-area {
-        padding: 40px;
-    }
-}
