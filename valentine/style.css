@@ -1,0 +1,154 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    background: #111;
+    font-family: 'Caveat', cursive; /* Small, realistic handwriting font */
+}
+
+.page {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    display: none;
+    overflow: hidden;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+.page.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* --- AESTHETIC BACKGROUNDS (From Unsplash) --- */
+.bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.6); /* Darkens bg so text pops */
+    z-index: 1;
+}
+
+.bg1 { background-image: url("https://images.unsplash.com/photo-1518199266791-5375a83190b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"); }
+.bg2 { background-image: url("https://images.unsplash.com/photo-1474552226712-ac0f0961a954?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"); }
+.bg3 { background-image: url("https://images.unsplash.com/photo-1551269901-5c5e14c25df7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"); }
+.bg4 { background-image: url("https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"); }
+
+/* --- NO BORDERS. REALISTIC PAPER LOOK --- */
+.paper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%;
+    max-width: 400px;
+    padding: 40px 20px;
+    
+    /* Cream paper texture and color */
+    background-color: #fdfbf7;
+    background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
+    
+    color: #1a1a2e; /* Dark ink color */
+    font-size: 26px;
+    text-align: center;
+    z-index: 5;
+    
+    /* Makes it look like torn/natural paper instead of a perfect box */
+    border-radius: 2px 15px 4px 20px;
+    box-shadow: 10px 15px 30px rgba(0,0,0,0.6);
+}
+
+.corner-flower {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 60px;
+    filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.4));
+}
+
+.name-text {
+    color: #8b0000;
+    font-weight: 700;
+    font-size: 32px;
+    margin-top: 10px;
+}
+
+/* --- BUTTONS --- */
+.content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    top: 40%;
+    color: white;
+}
+
+.content h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.8);
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Forces Yes and No to sit side-by-side */
+}
+
+button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 50px;
+    background: #d81b60;
+    color: white;
+    font-size: 24px;
+    font-family: 'Caveat', cursive;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    transition: transform 0.2s;
+}
+
+button:active { transform: scale(0.95); }
+
+#yesBtn { background: #4CAF50; }
+#noBtn { background: white; color: #d81b60; position: relative; }
+
+.paper button {
+    margin-top: 25px;
+    font-size: 20px;
+    background: transparent;
+    border: 2px solid #8b0000;
+    color: #8b0000;
+    box-shadow: none;
+}
+
+/* --- MASSIVE SCREEN FILLING ANIMATIONS --- */
+.chocolate-rain, .kiss-rain {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 4; /* Puts animation BEHIND the paper but over the background */
+}
+
+.falling-item {
+    position: absolute;
+    animation: fallAndStack linear forwards;
+}
+
+.chocolate { width: 50px; filter: drop-shadow(3px 5px 5px rgba(0,0,0,0.6)); }
+.kiss { width: 80px; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3)); opacity: 0.9; }
+
+@keyframes fallAndStack {
+    0% { transform: translateY(-100px) rotate(0deg); }
+    100% { transform: translateY(110vh) rotate(360deg); }
+}
