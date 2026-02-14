@@ -5,24 +5,203 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>For My Everything ❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: #0f0f0f url('https://images.unsplash.com/photo-1551269901-5c5e14c25df7?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            font-family: 'Caveat', cursive;
+        }
+
+        #bg-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        #transition-layer {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .paper-card {
+            background: #dcb88e url('https://www.transparenttextures.com/patterns/cream-paper.png');
+            width: 85%;
+            max-width: 400px;
+            min-height: 480px;
+            padding: 40px 25px;
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            /* Burnt edges effect */
+            box-shadow: inset 0 0 50px rgba(90, 40, 10, 0.8), 5px 15px 30px rgba(0,0,0,0.7);
+            border-radius: 5px 25px 5px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            animation: unwrap 1s ease-out;
+        }
+
+        @keyframes unwrap {
+            0% { transform: scale(0.5) rotate(-10deg); opacity: 0; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        .ink-text {
+            color: #3e1f10; /* Dried ink color */
+            transition: opacity 0.5s ease;
+        }
+
+        .story-img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.3));
+        }
+
+        h1 { font-size: 2.8rem; margin-bottom: 10px; color: #721c24; }
+        p { font-size: 1.8rem; line-height: 1.3; font-weight: 700; margin-bottom: 25px; }
+
+        button {
+            background: rgba(114, 28, 36, 0.1);
+            color: #721c24;
+            border: 2px solid #721c24;
+            padding: 10px 30px;
+            font-size: 1.5rem;
+            font-family: 'Caveat', cursive;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+        button:hover { background: #721c24; color: #dcb88e; }
+
+        .btn-group { display: flex; justify-content: center; gap: 20px; position: relative; height: 60px; }
+        #btnYes { background: #2b5329; color: white; border: none; }
+        #btnNo { background: #721c24; color: white; border: none; position: absolute; }
+
+        .falling-png {
+            position: fixed;
+            top: -100px;
+            will-change: transform;
+            animation: fall linear forwards;
+            z-index: 1100;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(115vh) rotate(360deg); }
+        }
+    </style>
 </head>
 <body>
-    <div id="transition-layer"></div>
-    <div id="bg-layer"></div>
 
-    <div class="content-area unwrap-anim" id="paperCard">
-        <div class="ink-content" id="inkContent">
-            <img id="mainGif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb200aHl5bnF4OG44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44/3o7TKoWXm3okO1kgHC/giphy.gif" class="story-gif">
-            
-            <h1 id="titleText">Hi Pondati ❤️</h1>
-            <p id="msgText">I have a special journey for you. Ready to begin?</p>
-            
+    <div id="bg-overlay"></div>
+    <div id="transition-layer"></div>
+
+    <div class="paper-card" id="paper">
+        <div class="ink-text" id="inkContent">
+            <img id="mainGif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb200aHl5bnF4OG44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44/3o7TKoWXm3okO1kgHC/giphy.gif" class="story-img">
+            <h1 id="titleText">Hi Chellam ❤️</h1>
+            <p id="msgText">I wrote you a letter. Are you ready to open it?</p>
             <div id="actionArea">
-                <button class="next-btn" onclick="startJourney()">Next Page 📖</button>
+                <button onclick="startJourney()">Open Letter 💌</button>
             </div>
         </div>
     </div>
-    <script src="script.js"></script>
+
+    <script>
+        const stories = [
+            { png: "https://img.icons8.com/fluency/144/rose.png", gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb200aHl5bnF4OG44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44/kGj2uE1nF70YjR1nLq/giphy.gif", title: "Rose Day 🌹", text: "chellaameee, a single rose is beautiful, but it pales in comparison to you." },
+            { png: "https://img.icons8.com/fluency/144/diamond-ring.png", gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb200aHl5bnF4OG44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44/l4pTdcifPGuRoGnRu/giphy.gif", title: "Propose Day 💍", text: "thangameee, I want to spend every second of my life with you." },
+            { png: "https://img.icons8.com/fluency/144/chocolate-bar.png", gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb200aHl5bnF4OG44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44/Q4sEE1X5HqCJO/giphy.gif", title: "Chocolate Day 🍫", text: "vairameeeeeee, life is sweeter because you are in it." },
+            { png: "https://img.icons8.com/fluency/144/teddy-bear.png", gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb200aHl5bnF4OG44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44/L12g7V0Jfk2iM5Cwus/giphy.gif", title: "Teddy Day 🧸", text: "pondatiiiiiiiiiiii, you are my favorite safe space." },
+            { png: "https://img.icons8.com/fluency/144/handshake.png", gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb200aHl5bnF4OG44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44/1k3RVbvmFvFsc/giphy.gif", title: "Promise Day 🤝", text: "azhagiiiiiiiiiiiiiii, I promise to hold your hand through every dark night." },
+            { png: "https://img.icons8.com/fluency/144/hugging-face.png", gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb200aHl5bnF4OG44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44/3oEdv4hwWTzBhWvaU0/giphy.gif", title: "Hug Day 🤗", text: "baby gurllllllllll, wrapping my arms around you is home." },
+            { png: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Kiss_mark_lipstick.svg/512px-Kiss_mark_lipstick.svg.png", gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb200aHl5bnF4OG44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44/117o9DtK0h5XgY/giphy.gif", title: "Kiss Day 😘", text: "milkcake ehhhhh, one kiss from you makes the world fade away." }
+        ];
+
+        let step = -1;
+        const fx = document.getElementById("transition-layer");
+
+        function startJourney() { nextStory(); }
+
+        function nextStory() {
+            step++;
+            document.getElementById("inkContent").style.opacity = '0';
+            
+            // Screen fill logic
+            let imgUrl = step < stories.length ? stories[step].png : "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Kiss_mark_lipstick.svg/512px-Kiss_mark_lipstick.svg.png";
+            for(let i=0; i<60; i++) {
+                setTimeout(() => spawn(imgUrl), i * 30);
+            }
+
+            setTimeout(() => {
+                if(step < stories.length) {
+                    document.getElementById("mainGif").src = stories[step].gif;
+                    document.getElementById("titleText").innerText = stories[step].title;
+                    document.getElementById("msgText").innerText = stories[step].text;
+                    document.getElementById("actionArea").innerHTML = `<button onclick="nextStory()">Next Page 📖</button>`;
+                } else {
+                    loadProposal();
+                }
+                document.getElementById("inkContent").style.opacity = '1';
+                // Re-trigger paper unwrap animation
+                document.getElementById("paper").style.animation = 'none';
+                void document.getElementById("paper").offsetWidth;
+                document.getElementById("paper").style.animation = 'unwrap 1s ease-out';
+            }, 1800);
+        }
+
+        function spawn(url) {
+            let img = document.createElement("img");
+            img.src = url;
+            img.className = "falling-png";
+            img.style.left = Math.random() * 100 + "vw";
+            img.style.width = (Math.random() * 50 + 50) + "px";
+            img.style.animationDuration = (Math.random() * 2 + 2) + "s";
+            fx.appendChild(img);
+            setTimeout(() => img.remove(), 4000);
+        }
+
+        function loadProposal() {
+            document.getElementById("mainGif").src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb200aHl5bnF4OG44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44/26BRv0ThflsHCqDrG/giphy.gif";
+            document.getElementById("titleText").innerText = "My Pondati...";
+            document.getElementById("msgText").innerText = "Will you be my Valentine forever?";
+            document.getElementById("actionArea").innerHTML = `
+                <div class="btn-group">
+                    <button id="btnYes" onclick="celebrate()">Yes! ❤️</button>
+                    <button id="btnNo" onmouseover="dodge()">No</button>
+                </div>
+            `;
+        }
+
+        function dodge() {
+            const btn = document.getElementById("btnNo");
+            btn.style.left = Math.random() * (window.innerWidth - 100) + "px";
+            btn.style.top = Math.random() * (window.innerHeight - 100) + "px";
+        }
+
+        function celebrate() {
+            document.getElementById("inkContent").style.opacity = '0';
+            for(let i=0; i<100; i++) setTimeout(() => spawn("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Kiss_mark_lipstick.svg/512px-Kiss_mark_lipstick.svg.png"), i*20);
+            setTimeout(() => {
+                document.getElementById("mainGif").src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb200aHl5bnF4OG44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44aW44/11s7Ke7jcNxCHS/giphy.gif";
+                document.getElementById("titleText").innerText = "Yayyy! 🎉";
+                document.getElementById("msgText").innerText = "I love you 3000! ❤️";
+                document.getElementById("actionArea").innerHTML = "";
+                document.getElementById("inkContent").style.opacity = '1';
+            }, 2000);
+        }
+    </script>
 </body>
 </html>
