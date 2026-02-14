@@ -14,6 +14,7 @@ const stories = [
 ];
 
 let currentStep = -1;
+let fadeInterval;
 const inkContent = document.getElementById("inkContent");
 const fxLayer = document.getElementById("transition-layer");
 const mainGif = document.getElementById("mainGif");
@@ -21,54 +22,58 @@ const mainGif = document.getElementById("mainGif");
 function startJourney() { nextStory(); }
 
 function nextStory() {
-    // 1. Instantly clear old PNGs so they don't overlap
-    fxLayer.innerHTML = "";
     currentStep++;
-    
-    // 2. Fade out current content
     inkContent.classList.add("hidden");
 
+    // Clear old PNG sequence
+    clearInterval(fadeInterval);
+    fxLayer.innerHTML = "";
+
     setTimeout(() => {
-        let currentPNG = "kiss";
-        if (currentStep < stories.length) currentPNG = stories[currentStep].p;
-
-        // 3. Pop new noticeable PNGs
-        for(let i = 0; i < 20; i++) {
-            setTimeout(() => spawnNoticeablePNG(pngs[currentPNG]), i * 60);
-        }
-
-        // 4. Update text and GIF
         if (currentStep < stories.length) {
-            mainGif.src = stories[currentStep].gif;
-            document.getElementById("titleText").innerText = stories[currentStep].title;
-            document.getElementById("msgText").innerText = stories[currentStep].text;
+            const data = stories[currentStep];
+            mainGif.src = data.gif;
+            document.getElementById("titleText").innerText = data.title;
+            document.getElementById("msgText").innerText = data.text;
             document.getElementById("actionArea").innerHTML = `<button class="next-btn" onclick="nextStory()">Next Page 📖</button>`;
+            
+            // Start fading current PNG type: 1 every 2 seconds (keeps ~2-3 on screen)
+            startFadingSequence(pngs[data.p]);
         } else {
             loadProposal();
         }
-        
-        // 5. Fade content back in
         inkContent.classList.remove("hidden");
-    }, 600);
+    }, 800);
 }
 
-function spawnNoticeablePNG(url) {
+function startFadingSequence(imgUrl) {
+    // Initial burst
+    spawnOne(imgUrl);
+    setTimeout(() => spawnOne(imgUrl), 1500);
+
+    // Continuous loop
+    fadeInterval = setInterval(() => {
+        spawnOne(imgUrl);
+    }, 2000); 
+}
+
+function spawnOne(url) {
     let img = document.createElement("img");
     img.src = url;
-    img.className = "popping-png";
+    img.className = "fading-png";
     
-    // Random positions (mostly center-focused to be noticeable)
-    img.style.left = (Math.random() * 70 + 15) + "vw";
-    img.style.top = (Math.random() * 70 + 15) + "vh";
+    // Random spots (keeping them away from very edges)
+    img.style.left = (Math.random() * 60 + 20) + "vw";
+    img.style.top = (Math.random() * 60 + 20) + "vh";
     
     let randomRot = (Math.random() * 40 - 20) + "deg";
     img.style.setProperty('--rotation', randomRot);
-    img.style.width = (Math.random() * 50 + 80) + "px"; // Larger and more noticeable
+    img.style.width = (Math.random() * 40 + 100) + "px"; // Very noticeable size
     
     fxLayer.appendChild(img);
     
-    // Auto-remove from DOM after animation finishes
-    setTimeout(() => { img.remove(); }, 2000);
+    // Remove from DOM after animation finishes (4 seconds total)
+    setTimeout(() => { img.remove(); }, 4100);
 }
 
 function loadProposal() {
@@ -81,14 +86,15 @@ function loadProposal() {
             <button id="btnNo" onmouseover="dodge()" ontouchstart="dodge()">No</button>
         </div>
     `;
+    startFadingSequence(pngs.kiss);
     dodge();
 }
 
 function showFinal() {
+    // Reveal Call Button immediately
     document.getElementById("actionArea").innerHTML = `
         <a href="tel:9353781514" class="call-btn">Call your purushan 📞</a>
     `;
-    for(let i = 0; i < 30; i++) setTimeout(() => spawnNoticeablePNG(pngs.kiss), i * 50);
     
     setTimeout(() => {
         mainGif.src = "gif10.gif";
@@ -101,6 +107,6 @@ function dodge() {
     const btn = document.getElementById("btnNo");
     if (!btn) return;
     btn.style.position = "fixed";
-    btn.style.left = Math.random() * (window.innerWidth - 100) + "px";
-    btn.style.top = Math.random() * (window.innerHeight - 50) + "px";
+    btn.style.left = Math.random() * (window.innerWidth - 120) + "px";
+    btn.style.top = Math.random() * (window.innerHeight - 60) + "px";
 }
