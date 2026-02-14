@@ -7,16 +7,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Playwrite+USA+Modern:wght@100..400&family=Licorice&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body onclick="handleTap(event)">
+<body id="mainBody">
+    <div id="static-bg"></div>
     <div id="transition-layer"></div>
-    <div id="bg-layer"></div>
     <div id="bubble-container"></div>
 
     <div class="content-area" id="paperCard">
         <div class="ink-content" id="inkContent">
             <img id="mainGif" src="gif1.gif" class="story-gif">
             <h1 id="titleText">Hi Pondati ❤️</h1>
-            <p id="msgText">I have a special journey for you. <br><br> (Tap anywhere to start 👆)</p>
+            <p id="msgText">Double-tap right to start the journey. <br> Single-tap to pop bubbles!</p>
             <div id="actionArea"></div>
         </div>
     </div>
