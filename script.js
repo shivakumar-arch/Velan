@@ -50,7 +50,6 @@ document.body.addEventListener('click', (e) => {
     }
 });
 
-// Explicitly mapped to window so inline HTML onclick works flawlessly
 window.showFinal = function() {
     paperCard.classList.add("story-out-next");
     setTimeout(() => {
@@ -62,18 +61,23 @@ window.showFinal = function() {
             Our journey is just beginning, and I cannot wait to see all the beautiful memories we will create together. You make me a better person just by being in my life. I promise to cherish you, respect you, and love you unconditionally for the rest of our days. <br><br>
             You are my everything, <strong>en chellam</strong>. My heart belongs to you now and forever. Thank you for being the most amazing <strong>pondati</strong> a man could ever ask for. I love you more than all the stars in the sky.
         `;
-        document.getElementById("actionArea").innerHTML = `<a href="tel:9353781514" class="call-btn">Call your purushan 📞</a>`;
+        document.getElementById("actionArea").innerHTML = `<a href="tel:6383264697" class="call-btn">Call your purushan 📞</a>`;
         paperCard.classList.add("story-in");
         setTimeout(() => paperCard.classList.remove("story-in"), 600);
     }, 400);
 };
 
-window.dodge = function() {
+window.dodge = function(e) {
+    if (e) e.preventDefault(); // Prevents touch events from acting as clicks on mobile
     const b = document.getElementById("btnNo");
     if(b) {
         b.style.position = "fixed";
-        b.style.left = Math.random() * (window.innerWidth - 100) + "px";
-        b.style.top = Math.random() * (window.innerHeight - 50) + "px";
+        // Safe zone for button jumping so it doesn't go off screen
+        const safeX = Math.random() * (window.innerWidth * 0.6) + (window.innerWidth * 0.15);
+        const safeY = Math.random() * (window.innerHeight * 0.6) + (window.innerHeight * 0.15);
+        b.style.left = safeX + "px";
+        b.style.top = safeY + "px";
+        b.style.zIndex = "99999";
     }
 };
 
@@ -109,6 +113,9 @@ function updatePage() {
         document.getElementById("msgText").innerText = data.text;
         document.getElementById("actionArea").innerHTML = "";
         startFadingSequence(pngs[data.p]);
+        
+        // Preload next gif
+        if (currentStep + 1 < stories.length) new Image().src = stories[currentStep + 1].gif;
     } else {
         loadProposal();
     }
@@ -118,6 +125,8 @@ function startFadingSequence(img) {
     const spawn = () => {
         let i = document.createElement("img"); i.src = img; i.className = "fading-png";
         i.style.left = Math.random() * 80 + "vw"; i.style.top = Math.random() * 80 + "vh";
+        let rot = (Math.random() * 60 - 30) + "deg";
+        i.style.setProperty('--rotation', rot);
         i.style.width = "80px"; fxLayer.appendChild(i);
         setTimeout(() => i.remove(), 4000);
     };
@@ -132,9 +141,8 @@ function loadProposal() {
     document.getElementById("actionArea").innerHTML = `
         <div class="btn-group">
             <button id="btnYes" onclick="window.showFinal()">Yes! ❤️</button>
-            <button id="btnNo" onmouseover="window.dodge()" ontouchstart="window.dodge()">No</button>
+            <button id="btnNo" onmouseover="window.dodge(event)" ontouchstart="window.dodge(event)">No</button>
         </div>
     `;
     startFadingSequence(pngs.kiss);
-    window.dodge(); // Start dodge immediately
 }
