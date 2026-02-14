@@ -3,327 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>For My Chellam ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Quicksand:wght@600&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            /* Clean, soft romantic background (No images) */
-            background-color: #ffe4e8;
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Caveat', cursive;
-        }
-
-        /* Full Screen Layer for Chocolates and Kisses */
-        #fx-layer {
-            position: absolute;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            pointer-events: none;
-            z-index: 100;
-            overflow: hidden;
-        }
-
-        /* The Origami Paper Area - NO BORDERS OR BOXES */
-        .origami-area {
-            width: 100%;
-            max-width: 400px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            z-index: 10;
-        }
-
-        /* CSS Animation: Origami Unwrap */
-        .unwrap-anim {
-            animation: unwrapPaper 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-        }
-        @keyframes unwrapPaper {
-            0% { transform: scale(0) rotate(180deg); opacity: 0; }
-            50% { transform: scale(1.1) rotate(-10deg); opacity: 1; }
-            100% { transform: scale(1) rotate(0deg); opacity: 1; }
-        }
-
-        /* Content inside */
-        .ink-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-        }
-
-        /* The GIFs */
-        img.story-gif {
-            width: 160px;
-            height: 160px;
-            object-fit: cover;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            /* Soft shadow to make it pop, but no harsh borders */
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        /* Text Styling */
-        h1 { font-size: 3rem; margin-bottom: 10px; font-weight: 700; color: #d81b60; line-height: 1; }
-        p { font-size: 1.8rem; line-height: 1.2; font-weight: 500; margin-bottom: 25px; color: #333; }
-
-        /* Clean Buttons */
-        button {
-            background-color: #d81b60;
-            color: #fff;
-            border: none;
-            padding: 10px 30px;
-            font-size: 1.5rem;
-            font-family: 'Caveat', cursive;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: transform 0.2s;
-            margin-top: 10px;
-            box-shadow: 0 4px 10px rgba(216, 27, 96, 0.3);
-        }
-        button:active { transform: scale(0.95); }
-
-        /* Proposal Question Buttons - FIXED */
-        .btn-group { 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            gap: 20px; /* This keeps them side-by-side perfectly */
-            width: 100%; 
-            height: 60px;
-            position: relative;
-        }
-        
-        #btnYes { background-color: #4CAF50; box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3); }
-        
-        /* Starts exactly next to Yes button */
-        #btnNo { 
-            background-color: #fff; 
-            color: #d81b60; 
-            border: 2px solid #d81b60; 
-            position: relative; /* Normal position until touched */
-            transition: all 0.2s;
-        }
-
-        /* --- 3D JAVASCRIPT EFFECTS STYLING --- */
-        
-        .choco-drop {
-            position: absolute;
-            width: 60px;
-            /* Makes SVGs look 3D and realistic */
-            filter: drop-shadow(4px 10px 8px rgba(0,0,0,0.4)) brightness(0.9); 
-            animation: fall linear forwards;
-        }
-        @keyframes fall {
-            0% { transform: translateY(-10vh) rotate(0deg) scale(0.8); }
-            100% { transform: translateY(110vh) rotate(360deg) scale(1.2); }
-        }
-
-        .kiss-stamp {
-            position: absolute;
-            width: 90px;
-            opacity: 0;
-            filter: drop-shadow(2px 2px 4px rgba(216, 27, 96, 0.4));
-            animation: stamp 0.2s ease-out forwards;
-        }
-        @keyframes stamp {
-            0% { transform: scale(3); opacity: 0; }
-            100% { transform: scale(1) rotate(var(--rot)); opacity: 0.9; }
-        }
-    </style>
+    <title>Will You Be Mine?</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div id="fx-layer"></div>
+<div id="app">
 
-    <div class="origami-area unwrap-anim" id="paperCard">
-        <div class="ink-content" id="inkContent">
-            <img id="mainGif" src="https://media.giphy.com/media/VpysUTESEpa6sM8yF8/giphy.gif" class="story-gif">
-            <h1 id="titleText">Hi Pondati ❤️</h1>
-            <p id="msgText">I made something special just for you. Ready?</p>
-            <div id="actionArea">
-                <button onclick="startJourney()">Open It 💌</button>
+    <section class="page active" id="page1">
+        <div class="bg bg1"></div>
+        <div class="content">
+            <h1>Will you be my Valentine?</h1>
+            <div class="buttons">
+                <button id="yesBtn">YES ❤️</button>
+                <button id="noBtn">NO</button>
             </div>
         </div>
-    </div>
+    </section>
 
-    <script>
-        // Bulletproof Giphy Links + Your Text
-        const stories = [
-            { gif: "https://media.giphy.com/media/kGj2uE1nF70YjR1nLq/giphy.gif", title: "Rose Day 🌹", text: "chellaameee, you are the most beautiful flower in my entire universe. No earthly rose could ever compare to you." },
-            { gif: "https://media.giphy.com/media/l4pTdcifPGuRoGnRu/giphy.gif", title: "Propose Day 💍", text: "thangameee, I don't need a specific day to tell you this, but I want to spend every single second of my life unfolding my love for you." },
-            { gif: "https://media.giphy.com/media/Q4sEE1X5HqCJO/giphy.gif", title: "Chocolate Day 🍫", text: "vairameeeeeee, my life is infinitely sweeter simply because you are a part of it." },
-            { gif: "https://media.giphy.com/media/L12g7V0Jfk2iM5Cwus/giphy.gif", title: "Teddy Day 🧸", text: "pondatiiiiiiiiiiii, you are my ultimate peace, my comfort, and my absolute favorite safe space." },
-            { gif: "https://media.giphy.com/media/1k3RVbvmFvFsc/giphy.gif", title: "Promise Day 🤝", text: "azhagiiiiiiiiiiiiiii, I promise to always protect you, cherish you, and hold your hand through every dark night." },
-            { gif: "https://media.giphy.com/media/3oEdv4hwWTzBhWvaU0/giphy.gif", title: "Hug Day 🤗", text: "baby gurllllllllll, wrapping my arms around you is the only magic I will ever need to feel complete." },
-            { gif: "https://media.giphy.com/media/117o9DtK0h5XgY/giphy.gif", title: "Kiss Day 😘", text: "milkcake ehhhhh, one kiss from you makes the whole world fade away." }
-        ];
+    <section class="page" id="page2">
+        <div class="bg bg2"></div>
+        <div class="paper">
+            <img src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f339.svg" class="corner-flower" alt="Rose">
+            <p>On Rose Day, I choose you again and again.</p>
+            <p class="name-text">chellaameee</p>
+            <button onclick="showPage(3)">Next Page 📖</button>
+        </div>
+    </section>
 
-        let currentStep = -1;
-        const paperCard = document.getElementById("paperCard");
-        const inkContent = document.getElementById("inkContent");
-        const fxLayer = document.getElementById("fx-layer");
-        const mainGif = document.getElementById("mainGif");
+    <section class="page" id="page3">
+        <div class="bg bg3"></div>
+        <div class="chocolate-rain" id="chocoLayer"></div>
+        <div class="paper">
+            <p>You are sweeter than every chocolate.</p>
+            <p class="name-text">thangameee</p>
+            <button onclick="showPage(4)">Next Page 📖</button>
+        </div>
+    </section>
 
-        function startJourney() {
-            nextStory();
-        }
+    <section class="page" id="page4">
+        <div class="bg bg4"></div>
+        <div class="kiss-rain" id="kissLayer"></div>
+        <div class="paper">
+            <p>Your love fills my entire world.</p>
+            <p class="name-text">baby gurllllllllll</p>
+        </div>
+    </section>
 
-        function nextStory() {
-            currentStep++;
-            
-            // Trigger Kiss Takeover before going to the Proposal
-            if (currentStep === 7) { 
-                triggerKissScreenTakeover();
-                return; 
-            }
+</div>
 
-            // CSS Animation Reset to make the paper "turn"
-            paperCard.classList.remove("unwrap-anim");
-            void paperCard.offsetWidth; // Trigger reflow
-            paperCard.classList.add("unwrap-anim");
-
-            // Trigger Chocolate Drop
-            if (stories[currentStep] && stories[currentStep].title.includes("Chocolate")) {
-                triggerChocolateRain();
-            }
-
-            if (currentStep < stories.length) {
-                mainGif.src = stories[currentStep].gif;
-                document.getElementById("titleText").innerText = stories[currentStep].title;
-                document.getElementById("msgText").innerText = stories[currentStep].text;
-                document.getElementById("actionArea").innerHTML = `<button onclick="nextStory()">Next Page 📖</button>`;
-            }
-        }
-
-        function loadProposal() {
-            paperCard.classList.remove("unwrap-anim");
-            void paperCard.offsetWidth;
-            paperCard.classList.add("unwrap-anim");
-
-            mainGif.src = "https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif";
-            document.getElementById("titleText").innerText = "My Pondati...";
-            document.getElementById("msgText").innerText = "Will you do me the absolute honor of being my Valentine forever?";
-            
-            // Buttons start side by side here
-            document.getElementById("actionArea").innerHTML = `
-                <div class="btn-group">
-                    <button id="btnYes" onclick="showFinal()">Yes! ❤️</button>
-                    <button id="btnNo" onmouseover="dodge()" ontouchstart="dodge()">No</button>
-                </div>
-            `;
-        }
-
-        function showFinal() {
-            paperCard.classList.remove("unwrap-anim");
-            void paperCard.offsetWidth;
-            paperCard.classList.add("unwrap-anim");
-
-            mainGif.src = "https://media.giphy.com/media/11s7Ke7jcNxCHS/giphy.gif";
-            document.getElementById("titleText").innerText = "She said YES! 🎉";
-            document.getElementById("msgText").innerText = "Happy Valentine's Day! I promise to cherish you, love you, and annoy you for the rest of our lives. I love you to the moon and back!";
-            document.getElementById("actionArea").innerHTML = ""; 
-            
-            setInterval(spawnSingleKiss, 600);
-        }
-
-        // --- 3D JAVASCRIPT ANIMATIONS ---
-
-        function triggerChocolateRain() {
-            // Un-corruptible SVG link for chocolate
-            const chocoImg = "https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f36b.svg";
-            
-            for(let i = 0; i < 35; i++) {
-                setTimeout(() => {
-                    let choco = document.createElement("img");
-                    choco.src = chocoImg;
-                    choco.className = "choco-drop";
-                    
-                    let size = Math.random() * 40 + 40; 
-                    choco.style.width = size + "px";
-                    choco.style.left = Math.random() * 100 + "vw";
-                    choco.style.animationDuration = (Math.random() * 2 + 2) + "s";
-                    
-                    fxLayer.appendChild(choco);
-                    setTimeout(() => choco.remove(), 4000);
-                }, i * 100); 
-            }
-        }
-
-        function triggerKissScreenTakeover() {
-            // Un-corruptible SVG link for Kiss Mark
-            const kissImg = "https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f48b.svg";
-            let kissesSpawed = 0;
-            let maxKisses = 65; 
-
-            // Hide the text area temporarily
-            inkContent.style.opacity = '0';
-
-            let kissInterval = setInterval(() => {
-                let kiss = document.createElement("img");
-                kiss.src = kissImg;
-                kiss.className = "kiss-stamp";
-                
-                kiss.style.left = (Math.random() * 110 - 10) + "vw";
-                kiss.style.top = (Math.random() * 110 - 10) + "vh";
-                
-                let rot = Math.floor(Math.random() * 360) + "deg";
-                kiss.style.setProperty('--rot', rot);
-                kiss.style.width = (Math.random() * 60 + 60) + "px";
-                
-                fxLayer.appendChild(kiss);
-                kissesSpawed++;
-
-                if(kissesSpawed >= maxKisses) {
-                    clearInterval(kissInterval);
-                    
-                    setTimeout(() => {
-                        fxLayer.innerHTML = ''; // Clear screen
-                        inkContent.style.opacity = '1'; // Bring text area back
-                        loadProposal();
-                    }, 1500);
-                }
-            }, 40); 
-        }
-
-        function spawnSingleKiss() {
-            const kissImg = "https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f48b.svg";
-            let kiss = document.createElement("img");
-            kiss.src = kissImg;
-            kiss.className = "kiss-stamp";
-            kiss.style.left = Math.random() * 90 + "vw";
-            kiss.style.top = Math.random() * 90 + "vh";
-            let rot = Math.floor(Math.random() * 360) + "deg";
-            kiss.style.setProperty('--rot', rot);
-            fxLayer.appendChild(kiss);
-            setTimeout(() => kiss.remove(), 2000);
-        }
-
-        // Running 'No' Button Logic - FIXED
-        function dodge() {
-            const btnNo = document.getElementById("btnNo");
-            
-            // The moment she touches it, it switches to absolute position to jump away
-            btnNo.style.position = "absolute";
-            
-            // Randomly jump anywhere on the screen
-            const maxX = window.innerWidth - btnNo.clientWidth - 20;
-            const maxY = window.innerHeight - btnNo.clientHeight - 20; 
-            
-            const randomX = Math.floor(Math.random() * maxX); 
-            const randomY = Math.floor(Math.random() * maxY);
-            
-            btnNo.style.left = randomX + "px";
-            btnNo.style.top = randomY + "px";
-        }
-    </script>
+<script src="script.js"></script>
 </body>
 </html>
-
